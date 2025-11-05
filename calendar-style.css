@@ -1,0 +1,320 @@
+/* Calendar Page Styles */
+
+.calendar-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 0 60px;
+    margin-top: 70px;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.page-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Season Filter */
+.season-filter-section {
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.season-tabs {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.season-tab {
+    padding: 12px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.season-tab:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: #00d9ff;
+}
+
+.season-tab.active {
+    background: #00d9ff;
+    border-color: #00d9ff;
+    color: #0a0e27;
+}
+
+/* Weekly Calendar */
+.weekly-calendar-section {
+    padding: 60px 0;
+}
+
+.week-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.week-nav-btn {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.week-nav-btn:hover {
+    background: #00d9ff;
+    border-color: #00d9ff;
+    color: #0a0e27;
+}
+
+.current-week {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+}
+
+.day-column {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px 15px;
+    min-height: 400px;
+}
+
+.day-column.today {
+    border-color: #00d9ff;
+    background: rgba(0, 217, 255, 0.05);
+}
+
+.day-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.day-name {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.day-date {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00d9ff;
+}
+
+.today-badge {
+    display: inline-block;
+    background: #00d9ff;
+    color: #0a0e27;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* Episode Cards */
+.episode-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calendar-episode-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.calendar-episode-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #00d9ff;
+    transform: translateY(-3px);
+}
+
+.episode-card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.episode-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.episode-time-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #00d9ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.episode-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.episode-card-info {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Today's Releases */
+.todays-releases-section {
+    padding: 60px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.releases-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.release-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.release-card:hover {
+    transform: translateY(-5px);
+    border-color: #00d9ff;
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+}
+
+.release-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.release-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.release-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #e74c3c;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.release-card-content {
+    padding: 20px;
+}
+
+.release-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.release-card-episode {
+    color: #00d9ff;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.release-card-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .page-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .week-navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .releases-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .season-tabs {
+        flex-direction: column;
+    }
+    
+    .season-tab {
+        width: 100%;
+    }
+}

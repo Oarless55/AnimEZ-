@@ -1,0 +1,459 @@
+/* Anime Detail Page Styles */
+
+.detail-hero-bg {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    margin-top: 70px;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.detail-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 14, 39, 0.4) 0%,
+        rgba(10, 14, 39, 0.8) 70%,
+        rgba(10, 14, 39, 1) 100%
+    );
+}
+
+.play-trailer-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(0, 217, 255, 0.9);
+    border: none;
+    color: #0a0e27;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-trailer-btn:hover {
+    background: #00d9ff;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-trailer-btn svg {
+    width: 32px;
+    height: 32px;
+    margin-left: 4px;
+}
+
+/* Detail Section */
+.anime-detail-section {
+    padding: 40px 0 60px;
+    margin-top: -150px;
+    position: relative;
+    z-index: 20;
+}
+
+.detail-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.detail-poster {
+    flex-shrink: 0;
+    width: 300px;
+}
+
+.detail-poster img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.add-to-list-btn {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 217, 255, 0.1);
+    border: 2px solid #00d9ff;
+    border-radius: 8px;
+    color: #00d9ff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-to-list-btn:hover {
+    background: #00d9ff;
+    color: #0a0e27;
+}
+
+.add-to-list-btn span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Detail Info */
+.detail-info {
+    flex: 1;
+}
+
+.anime-detail-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.anime-meta-info {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.anime-stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.star-icon {
+    color: #ffd700;
+    font-size: 20px;
+}
+
+.rating {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.rating-max {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.stat-divider {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Actions */
+.anime-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.action-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #00d9ff;
+    color: #00d9ff;
+}
+
+.watch-now-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 15px 30px;
+    background: #00d9ff;
+    border: none;
+    border-radius: 25px;
+    color: #0a0e27;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.watch-now-btn:hover {
+    background: #00b8d4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+}
+
+/* Description */
+.anime-description {
+    margin-bottom: 25px;
+}
+
+.anime-description h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.anime-description p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+/* Tags */
+.anime-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tag {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s;
+}
+
+.tag:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: #00d9ff;
+    color: #00d9ff;
+}
+
+.show-more-tags {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.show-more-tags:hover {
+    color: #00d9ff;
+}
+
+/* Episodes Section */
+.episodes-section {
+    padding: 60px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.episodes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.episodes-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+    border-left: 4px solid #00d9ff;
+    padding-left: 15px;
+}
+
+.season-select {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+.season-select option {
+    background: #1a1f3a;
+    color: #ffffff;
+}
+
+/* Episodes List */
+.episodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.episode-item {
+    display: flex;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.episode-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #00d9ff;
+    transform: translateX(10px);
+}
+
+.episode-thumbnail {
+    position: relative;
+    width: 280px;
+    height: 157px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.episode-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.episode-number-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.episode-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.episode-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.episode-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.episode-number {
+    color: #00d9ff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.episode-date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.episode-description {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .detail-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .detail-poster {
+        width: 250px;
+    }
+
+    .detail-info {
+        width: 100%;
+    }
+
+    .anime-detail-title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-hero-bg {
+        height: 40vh;
+    }
+
+    .anime-detail-section {
+        margin-top: -100px;
+    }
+
+    .detail-poster {
+        width: 200px;
+    }
+
+    .anime-detail-title {
+        font-size: 24px;
+    }
+
+    .episode-thumbnail {
+        width: 180px;
+        height: 101px;
+    }
+
+    .episode-item {
+        flex-direction: column;
+    }
+
+    .episode-thumbnail {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+}
+
+@media (max-width: 480px) {
+    .anime-stats {
+        font-size: 14px;
+    }
+
+    .watch-now-btn {
+        max-width: 100%;
+    }
+
+    .episodes-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

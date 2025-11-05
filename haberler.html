@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Haberleri - AnimeCix</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="news-style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1>Anime<span>CiX</span></h1>
+                    </a>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Bir anime ara..." id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Animeler</a>
+                    <a href="takvim.html" class="nav-link">Takvim</a>
+                    <a href="haberler.html" class="nav-link active">Haberler</a>
+                    <a href="#" class="nav-link">Discord</a>
+                </nav>
+                
+                <div class="user-area">
+                    <button class="notification-btn">🔔</button>
+                    <div class="user-avatar">👤</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- News Hero -->
+    <section class="news-hero">
+        <div class="container">
+            <h1 class="page-title">📰 Anime Dünyasından Haberler</h1>
+            <p class="page-subtitle">En güncel anime haberleri, duyurular ve özel içerikler</p>
+        </div>
+    </section>
+
+    <!-- News Categories -->
+    <section class="news-categories-section">
+        <div class="container">
+            <div class="news-tabs">
+                <button class="news-tab active" data-category="all">Tümü</button>
+                <button class="news-tab" data-category="announcements">Duyurular</button>
+                <button class="news-tab" data-category="releases">Yeni Çıkanlar</button>
+                <button class="news-tab" data-category="reviews">İncelemeler</button>
+                <button class="news-tab" data-category="events">Etkinlikler</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured News -->
+    <section class="featured-news-section">
+        <div class="container">
+            <div class="featured-news" id="featuredNews">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="latest-news-section">
+        <div class="container">
+            <h2 class="section-title">📌 Son Haberler</h2>
+            <div class="news-grid" id="newsGrid">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Topics -->
+    <section class="trending-section">
+        <div class="container">
+            <h2 class="section-title">🔥 Trend Konular</h2>
+            <div class="trending-topics" id="trendingTopics">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </div>
+    </section>
+
+    <script src="haberler.js"></script>
+</body>
+</html>

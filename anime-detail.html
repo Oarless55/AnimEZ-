@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Anime Detay - AnimeCix</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="detail-style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1>Anime<span>CiX</span></h1>
+                    </a>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Bir anime ara..." id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Animeler</a>
+                    <a href="#" class="nav-link">Takvim</a>
+                    <a href="#" class="nav-link">Haberler</a>
+                    <a href="#" class="nav-link">Discord</a>
+                </nav>
+                
+                <div class="user-area">
+                    <button class="notification-btn">🔔</button>
+                    <div class="user-avatar">👤</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Background -->
+    <div class="detail-hero-bg" id="heroBackground">
+        <div class="detail-hero-overlay"></div>
+        <button class="play-trailer-btn" id="playTrailer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Anime Detail Content -->
+    <section class="anime-detail-section">
+        <div class="container">
+            <div class="detail-content">
+                <!-- Left Side - Poster -->
+                <div class="detail-poster">
+                    <img id="animePoster" src="" alt="Anime Poster">
+                    <button class="add-to-list-btn">
+                        <span>+</span> Listeye Ekle
+                    </button>
+                </div>
+
+                <!-- Right Side - Info -->
+                <div class="detail-info">
+                    <h1 class="anime-detail-title" id="animeTitle">Anime Başlığı</h1>
+                    
+                    <div class="anime-meta-info" id="animeGenres">
+                        Drama / Aksiyon & Macera / Bilim Kurgu & Fantezi
+                    </div>
+
+                    <div class="anime-stats">
+                        <div class="stat-item">
+                            <span class="star-icon">⭐</span>
+                            <span class="rating" id="animeRating">8.9</span>
+                            <span class="rating-max">/ 10</span>
+                        </div>
+                        <div class="stat-divider">•</div>
+                        <div class="stat-item">
+                            <span id="animeDuration">24 dakika</span>
+                        </div>
+                        <div class="stat-divider">•</div>
+                        <div class="stat-item">
+                            <span id="animeEpisodes">38 bölüm</span>
+                        </div>
+                        <div class="stat-divider">•</div>
+                        <div class="stat-item">
+                            <span id="animeDate">9/1/2019</span>
+                        </div>
+                    </div>
+
+                    <div class="anime-actions">
+                        <button class="action-btn favorite-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                        <button class="action-btn bookmark-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </button>
+                        <button class="watch-now-btn" id="watchNowBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            Şimdi İzle
+                        </button>
+                    </div>
+
+                    <div class="anime-description">
+                        <h3>Konu</h3>
+                        <p id="animeDescription">
+                            Anime açıklaması buraya gelecek...
+                        </p>
+                    </div>
+
+                    <div class="anime-tags" id="animeTags">
+                        <span class="tag">Şiddet</span>
+                        <span class="tag">anime</span>
+                        <span class="tag">Ejderha</span>
+                        <span class="tag">İşlevsiz aile</span>
+                        <span class="tag">Büyü</span>
+                        <span class="tag">romantik</span>
+                    </div>
+
+                    <button class="show-more-tags" id="showMoreTags">
+                        22 tür daha göster ▼
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section class="episodes-section">
+        <div class="container">
+            <div class="episodes-header">
+                <h2>1. Sezon</h2>
+                <select class="season-select" id="seasonSelect">
+                    <option value="1">1. Sezon</option>
+                    <option value="2">2. Sezon</option>
+                </select>
+            </div>
+
+            <div class="episodes-list" id="episodesList">
+                <!-- Episodes will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <script src="anime-detail.js"></script>
+</body>
+</html>

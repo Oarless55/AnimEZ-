@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeCix - Anime İzleme Sitesi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1>Anime<span>CiX</span></h1>
+                    </a>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Bir anime ara..." id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Animeler</a>
+                    <a href="takvim.html" class="nav-link">Takvim</a>
+                    <a href="haberler.html" class="nav-link">Haberler</a>
+                    <a href="#" class="nav-link">Discord</a>
+                </nav>
+                
+                <div class="user-area">
+                    <button class="notification-btn">🔔</button>
+                    <div class="user-avatar">👤</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section / Featured Anime -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1920&h=1080&fit=crop" alt="Featured Anime" class="hero-image">
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <span class="category-badge">Haberler</span>
+                <h2 class="hero-title">Fate/Hollow Ataraxia REMASTERED PC ve Switch için Çıkış Tarihi Açıklandı!</h2>
+                <p class="hero-description">
+                    Daha önce bu yıl içinde çıkacağı doğrularan Fate/hollow ataraxia REMASTERED için nihai çıkış tarihi belli oldu. Güncellenmiş sürümü, yüksek çözünürlükle gerçekçi İngilizce ve Basitleştirilmiş Çince yerleştirilmeler ve daha fazlasını içeriyor. 2014 tarihli sürümü temel alan oyun, 7 Ağustos'ta Nintendo Switch ve PC (Steam) platformlarında çıkış yapacak...
+                </p>
+                <button class="read-more-btn">more</button>
+            </div>
+        </div>
+        
+        <!-- Hero Slider Dots -->
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- Kaldığın Yerden Devam Et -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Kaldığın Yerden Devam Et 🔥</h3>
+                <div class="pagination">
+                    <span class="page-info" id="continuePageInfo">1 - 5 of <span>28</span></span>
+                    <button class="arrow-btn prev-btn" id="continuePrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="continueNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="continueGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yeni Eklenen Bölümler -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Yeni Eklenen Bölümler 🆕</h3>
+                <div class="pagination">
+                    <span class="page-info" id="newEpisodesPageInfo">1 - 5 of <span>15</span></span>
+                    <button class="arrow-btn prev-btn" id="newEpisodesPrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="newEpisodesNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="newEpisodesGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aksiyon Animeleri -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Aksiyon Animeleri ⚔️</h3>
+                <div class="pagination">
+                    <span class="page-info" id="actionPageInfo">1 - 5 of <span>12</span></span>
+                    <button class="arrow-btn prev-btn" id="actionPrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="actionNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="actionGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Isekai Animeleri -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Isekai Animeleri 🌍</h3>
+                <div class="pagination">
+                    <span class="page-info" id="isekaiPageInfo">1 - 5 of <span>10</span></span>
+                    <button class="arrow-btn prev-btn" id="isekaiPrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="isekaiNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="isekaiGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Romance Animeleri -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Romance Animeleri 💕</h3>
+                <div class="pagination">
+                    <span class="page-info" id="romancePageInfo">1 - 5 of <span>8</span></span>
+                    <button class="arrow-btn prev-btn" id="romancePrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="romanceNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="romanceGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Korku Animeleri -->
+    <section class="anime-grid-section">
+        <div class="container">
+            <div class="section-header">
+                <h3 class="section-title">Korku Animeleri 👻</h3>
+                <div class="pagination">
+                    <span class="page-info" id="horrorPageInfo">1 - 5 of <span>6</span></span>
+                    <button class="arrow-btn prev-btn" id="horrorPrevBtn">❮</button>
+                    <button class="arrow-btn next-btn" id="horrorNextBtn">❯</button>
+                </div>
+            </div>
+            
+            <div class="anime-grid-wrapper">
+                <div class="anime-grid" id="horrorGrid">
+                    <!-- Anime kartları JavaScript ile yüklenecek -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

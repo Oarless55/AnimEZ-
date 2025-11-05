@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Takvimi - AnimeCix</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="calendar-style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="index.html" style="text-decoration: none; color: inherit;">
+                        <h1>Anime<span>CiX</span></h1>
+                    </a>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Bir anime ara..." id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Animeler</a>
+                    <a href="takvim.html" class="nav-link active">Takvim</a>
+                    <a href="haberler.html" class="nav-link">Haberler</a>
+                    <a href="#" class="nav-link">Discord</a>
+                </nav>
+                
+                <div class="user-area">
+                    <button class="notification-btn">🔔</button>
+                    <div class="user-avatar">👤</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Calendar Hero -->
+    <section class="calendar-hero">
+        <div class="container">
+            <h1 class="page-title">📅 Anime Yayın Takvimi</h1>
+            <p class="page-subtitle">Bu haftanın ve gelecek günlerin yeni bölümlerini kaçırma!</p>
+        </div>
+    </section>
+
+    <!-- Season Filter -->
+    <section class="season-filter-section">
+        <div class="container">
+            <div class="season-tabs">
+                <button class="season-tab active" data-season="current">Şu An Yayında</button>
+                <button class="season-tab" data-season="upcoming">Yakında</button>
+                <button class="season-tab" data-season="winter">Kış 2025</button>
+                <button class="season-tab" data-season="spring">İlkbahar 2025</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Calendar -->
+    <section class="weekly-calendar-section">
+        <div class="container">
+            <div class="week-navigation">
+                <button class="week-nav-btn" id="prevWeek">❮ Önceki Hafta</button>
+                <h2 class="current-week" id="currentWeekTitle">4 Kasım - 10 Kasım 2025</h2>
+                <button class="week-nav-btn" id="nextWeek">Sonraki Hafta ❯</button>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Today's Releases -->
+    <section class="todays-releases-section">
+        <div class="container">
+            <h2 class="section-title">🔥 Bugün Yayınlanan Bölümler</h2>
+            <div class="releases-list" id="todaysReleases">
+                <!-- JavaScript ile doldurulacak -->
+            </div>
+        </div>
+    </section>
+
+    <script src="takvim.js"></script>
+</body>
+</html>
