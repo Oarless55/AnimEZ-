@@ -332,7 +332,7 @@ function loadAnimeDetails(animeId) {
     }
     
     // Sayfa başlığı
-    document.getElementById('pageTitle').textContent = `${anime.title} - AnimeCix`;
+    document.getElementById('pageTitle').textContent = `${anime.title} - AnimEZ`;
     
     // Hero arka plan
     document.getElementById('heroBackground').style.backgroundImage = `url('${anime.background}')`;
@@ -470,4 +470,5 @@ function initializeEventListeners() {
 function playEpisode(episode, season) {
     console.log(`▶️ Oynatılıyor: S${season}E${episode.number} - ${episode.title}`);
     alert(`▶️ ${episode.title}\n\nBölüm oynatılıyor...\n\nGerçek uygulamada video player açılacak.`);
+
 }
