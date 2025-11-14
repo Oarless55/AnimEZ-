@@ -1,3 +1,40 @@
+// Backend API URL
+const API_URL = 'http://localhost:5000';
+
+// Animeleri backend'den çek
+async function loadAnimesFromBackend() {
+    try {
+        const response = await fetch(`${API_URL}/api/animes`);
+        const animes = await response.json();
+        
+        // Mevcut allAnimeData'yı güncelle
+        return animes.map((anime, index) => ({
+            id: anime.id || index + 100,
+            title: anime.title,
+            genre: anime.genre || 'Unknown',
+            episode: anime.episode || 0,
+            image: anime.image || 'https://picsum.photos/300/420',
+            category: anime.genres ? anime.genres.split(',') : ['continue']
+        }));
+    } catch (error) {
+        console.error('Backend\'den anime yüklenemedi:', error);
+        return allAnimeData; // Hata durumunda mevcut veriyi kullan
+    }
+}
+
+// Sayfa yüklendiğinde backend'den veri çek
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🚀 AnimEZ yükleniyor...');
+    
+    // Backend'den animeleri yükle
+    const backendAnimes = await loadAnimesFromBackend();
+    if (backendAnimes.length > 0) {
+        allAnimeData.push(...backendAnimes);
+        console.log('✅ Backend\'den', backendAnimes.length, 'anime yüklendi!');
+    }
+    
+    // ... geri kalan kod aynı kalacak
+});
 // Ana Anime Verisi (Tüm animeler)
 const allAnimeData = [
     // Continue Watching + Aksiyon
@@ -386,5 +423,6 @@ window.addEventListener('scroll', () => {
     
     lastScroll = currentScroll;
 });
+
 
 console.log('✨ AnimeCix yüklendi! Toplam', allAnimeData.length, 'anime mevcut.')
