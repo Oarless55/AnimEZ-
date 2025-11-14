@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import requests
 import sqlite3
@@ -46,6 +46,17 @@ def init_db():
     conn.close()
 
 init_db()
+
+# 🎯 ADMIN PANEL ROUTE (YENİ!)
+@app.route('/admin')
+@app.route('/admin.html')
+def admin_panel():
+    return send_file('admin.html')
+
+# 🏠 ANA SAYFA ROUTE (YENİ!)
+@app.route('/')
+def index():
+    return send_file('index.html')
 
 # 🎯 Anime listesini çek (Seicode API)
 @app.route('/api/admin/seicode/list', methods=['GET'])
@@ -330,4 +341,9 @@ def get_anime_detail(slug):
     })
 
 if __name__ == '__main__':
+    app.run(debug=True, port=5000, host='0.0.0.0')
+    })
+
+if __name__ == '__main__':
+
     app.run(debug=True, port=5000)
