@@ -1,0 +1,507 @@
+/* Watch Page Styles */
+
+.watch-page {
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.watch-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #000;
+}
+
+/* Main Video Area */
+.video-main {
+    flex: 1;
+    padding: 0;
+    background-color: #000;
+}
+
+.video-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    position: relative;
+}
+
+.video-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Player Info Bar */
+.player-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.player-info-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.fansub-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.fansub-icon {
+    font-size: 18px;
+}
+
+.fansub-badge span {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.info-divider {
+    color: #666;
+    font-size: 14px;
+}
+
+.player-controls-center {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0. 2);
+}
+
+/* Fansub Section */
+.fansub-section {
+    padding: 30px 20px;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.section-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.fansub-credits {
+    color: #999;
+    font-size: 14px;
+    margin: 0 0 15px 0;
+}
+
+.discord-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #5865f2;
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.discord-btn:hover {
+    background: #4752c4;
+    transform: translateY(-1px);
+}
+
+/* Translations Section */
+.translations-section,
+.sources-section {
+    padding: 30px 20px;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.section-header-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.header-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(59, 130, 246, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.section-header-icon h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.section-header-icon p {
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Fansub Grid */
+.fansub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.fansub-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fansub-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.fansub-card.active {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+}
+
+.fansub-card-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.fansub-card-info h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+}
+
+.fansub-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fansub-rating .star {
+    font-size: 14px;
+}
+
+.fansub-rating .score {
+    color: #fbbf24;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.fansub-rating .max {
+    color: #666;
+    font-size: 13px;
+}
+
+/* Sources Grid */
+.sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.source-card {
+    background: rgba(139, 92, 66, 0.2);
+    border: 2px solid rgba(139, 92, 66, 0.3);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.source-card:hover {
+    background: rgba(139, 92, 66, 0.3);
+    border-color: rgba(139, 92, 66, 0.5);
+    transform: translateY(-2px);
+}
+
+.source-card.active {
+    background: rgba(139, 92, 66, 0.4);
+    border-color: #8b5c42;
+}
+
+.source-play-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* Right Sidebar - Episodes */
+.episodes-sidebar {
+    width: 400px;
+    background-color: #0f0f0f;
+    border-left: 1px solid #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.sidebar-header h2 {
+    color: #3b82f6;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.sidebar-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.sidebar-action-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.sidebar-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Anime Info Card */
+.anime-info-card {
+    padding: 20px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    gap: 15px;
+}
+
+.anime-info-card img {
+    width: 80px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.anime-info-text h3 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.anime-info-text p {
+    color: #999;
+    font-size: 13px;
+    margin: 0 0 12px 0;
+}
+
+.watch-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.watch-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.watch-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.watch-option.active {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+}
+
+.option-icon {
+    font-size: 10px;
+    color: #3b82f6;
+}
+
+/* Episodes List */
+.episodes-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.episode-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+}
+
+.episode-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.episode-item.active {
+    background: rgba(59, 130, 246, 0.15);
+    border-left: 3px solid #3b82f6;
+}
+
+.episode-thumbnail {
+    width: 120px;
+    height: 68px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.episode-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.episode-info-text {
+    flex: 1;
+}
+
+.episode-number {
+    color: #3b82f6;
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.episode-title {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Scrollbar Styling */
+.episodes-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.episodes-list::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.episodes-list::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.episodes-list::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .episodes-sidebar {
+        width: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .watch-container {
+        flex-direction: column;
+    }
+    
+    .episodes-sidebar {
+        width: 100%;
+        max-height: 400px;
+    }
+    
+    .player-controls-center {
+        flex-wrap: wrap;
+    }
+}
