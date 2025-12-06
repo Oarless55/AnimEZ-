@@ -101,7 +101,7 @@ async function loadAnimesFromSupabase() {
         
         if (animes && animes.length > 0) {
             // Supabase verilerini mevcut formata dönüştür
-            const supabaseAnimes = animes. map(anime => ({
+            const supabaseAnimes = animes.map(anime => ({
                 id: anime.id,
                 title: anime.title,
                 genre: anime.genres || 'Unknown',
@@ -156,9 +156,9 @@ function initializeCarousels() {
     console.log('📊 Kategoriler:');
     console.log('Continue:', continueAnime.length);
     console.log('Yeni Bölümler:', newEpisodesAnime.length);
-    console. log('Aksiyon:', actionAnime.length);
+    console.log('Aksiyon:', actionAnime.length);
     console.log('Isekai:', isekaiAnime.length);
-    console. log('Romance:', romanceAnime.length);
+    console.log('Romance:', romanceAnime.length);
     console.log('Korku:', horrorAnime.length);
     
     // Carousel'ları başlat
@@ -181,10 +181,10 @@ function getAnimeByCategory(category) {
 class AnimeCarousel {
     constructor(gridId, prevBtnId, nextBtnId, pageInfoId, animeList) {
         this.gridId = gridId;
-        this. prevBtnId = prevBtnId;
+        this.prevBtnId = prevBtnId;
         this.nextBtnId = nextBtnId;
         this.pageInfoId = pageInfoId;
-        this. animeList = animeList;
+        this.animeList = animeList;
         this.currentIndex = 0;
         this.itemsPerView = 5;
         
@@ -193,7 +193,7 @@ class AnimeCarousel {
     
     init() {
         this.calculateItemsPerView();
-        this. render();
+        this.render();
         this.initializeButtons();
         
         // Resize event
@@ -295,7 +295,7 @@ class AnimeCarousel {
     
     updatePosition() {
         const grid = document.getElementById(this. gridId);
-        const cards = grid.querySelectorAll('. anime-card');
+        const cards = grid.querySelectorAll('.anime-card');
         
         if (cards.length === 0) return;
         
@@ -363,7 +363,7 @@ function initializeSlider() {
 }
 
 function updateSlide() {
-    const dots = document.querySelectorAll('. dot');
+    const dots = document.querySelectorAll('.dot');
     const heroImage = document.querySelector('.hero-image');
     const heroTitle = document.querySelector('.hero-title');
     const heroDescription = document.querySelector('.hero-description');
@@ -418,7 +418,7 @@ async function liveSearch(searchTerm) {
         // Supabase'de ara
         const supabaseResults = await AnimeAPI.searchAnimes(searchTerm);
         if (supabaseResults && supabaseResults.length > 0) {
-            results = supabaseResults. slice(0, 5);
+            results = supabaseResults.slice(0, 5);
         }
     } catch (error) {
         console.warn('⚠️ Supabase araması başarısız, yerel aramaya geçiliyor');
@@ -429,7 +429,7 @@ async function liveSearch(searchTerm) {
         results = allAnimeData
             .filter(anime => 
                 anime.title.toLowerCase(). includes(searchTerm.toLowerCase()) ||
-                (anime.genre && anime.genre. toLowerCase().includes(searchTerm. toLowerCase()))
+                (anime.genre && anime.genre. toLowerCase().includes(searchTerm.toLowerCase()))
             )
             .slice(0, 5);
     }
@@ -475,7 +475,7 @@ function displaySearchResults(results) {
 // Arama başlatma
 function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.querySelector('. search-btn');
+    const searchBtn = document.querySelector('.search-btn');
     const dropdown = document.getElementById('searchResultsDropdown');
     
     if (!searchInput || !searchBtn) return;
@@ -487,12 +487,12 @@ function initializeSearch() {
     
     // Input event - yazdıkça ara
     searchInput.addEventListener('input', (e) => {
-        debouncedSearch(e. target.value);
+        debouncedSearch(e.target.value);
     });
     
     // Enter tuşu - ilk sonuca git
-    searchInput. addEventListener('keypress', (e) => {
-        if (e. key === 'Enter') {
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
             performSearch();
         }
     });
@@ -505,7 +505,7 @@ function initializeSearch() {
     });
     
     // Dışarı tıklayınca kapat
-    document. addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
         if (!e.target.closest('.search-box') && dropdown) {
             dropdown.classList.remove('active');
         }
@@ -518,7 +518,7 @@ function initializeSearch() {
 // Enter veya buton tıklayınca ilk sonuca git
 async function performSearch() {
     const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput.value.toLowerCase(). trim();
+    const searchTerm = searchInput.value.toLowerCase().trim();
     
     if (!searchTerm) return;
     
@@ -538,7 +538,7 @@ async function performSearch() {
     
     const results = allAnimeData. filter(anime => 
         anime.title.toLowerCase().includes(searchTerm) ||
-        anime. genre. toLowerCase().includes(searchTerm)
+        anime.genre. toLowerCase().includes(searchTerm)
     );
     
     console.log(`📊 ${results.length} sonuç bulundu`);
@@ -556,7 +556,7 @@ window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
     
     if (currentScroll > lastScroll && currentScroll > 100) {
-        header. style.transform = 'translateY(-100%)';
+        header.style.transform = 'translateY(-100%)';
     } else {
         header.style.transform = 'translateY(0)';
     }
@@ -565,4 +565,5 @@ window.addEventListener('scroll', () => {
 });
 
 console.log('✨ AnimEZ yüklendi!  Toplam', allAnimeData.length, 'anime mevcut.');
+
 
