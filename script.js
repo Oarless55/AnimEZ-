@@ -386,32 +386,145 @@ function updateSlide() {
     }
 }
 
-// ===== ARAMA (GÜNCELLENDİ - Supabase araması eklenmiş) =====
+// ===== ARAMA SİSTEMİ =====
+
+// Debounce fonksiyonu (çok hızlı aramayı önler)
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Canlı arama fonksiyonu
+async function liveSearch(searchTerm) {
+    const dropdown = document.getElementById('searchResultsDropdown');
+    
+    if (!dropdown) return;
+    
+    if (! searchTerm || searchTerm.length < 2) {
+        dropdown.classList.remove('active');
+        return;
+    }
+    
+    let results = [];
+    
+    try {
+        // Supabase'de ara
+        const supabaseResults = await AnimeAPI.searchAnimes(searchTerm);
+        if (supabaseResults && supabaseResults.length > 0) {
+            results = supabaseResults. slice(0, 5);
+        }
+    } catch (error) {
+        console.warn('⚠️ Supabase araması başarısız, yerel aramaya geçiliyor');
+    }
+    
+    // Supabase'de bulunamazsa yerel veride ara
+    if (results.length === 0) {
+        results = allAnimeData
+            .filter(anime => 
+                anime.title.toLowerCase(). includes(searchTerm.toLowerCase()) ||
+                (anime.genre && anime.genre. toLowerCase().includes(searchTerm. toLowerCase()))
+            )
+            .slice(0, 5);
+    }
+    
+    displaySearchResults(results);
+}
+
+// Sonuçları göster
+function displaySearchResults(results) {
+    const dropdown = document.getElementById('searchResultsDropdown');
+    
+    if (!dropdown) return;
+    
+    if (results.length === 0) {
+        dropdown.innerHTML = '<div class="search-no-results">Sonuç bulunamadı</div>';
+        dropdown.classList.add('active');
+        return;
+    }
+    
+    dropdown.innerHTML = results.map(anime => {
+        const posterUrl = anime.poster_url || anime.image || 'https://via.placeholder.com/60x80?text=No+Image';
+        const year = anime.year || '';
+        const description = anime.description || anime.genre || 'Açıklama bulunmuyor';
+        
+        return `
+            <div class="search-result-item" onclick="window.location.href='anime-detail.html?id=${anime.id}'">
+                <img src="${posterUrl}" 
+                     alt="${anime.title}" 
+                     class="search-result-thumbnail"
+                     onerror="this.src='https://via.placeholder.com/60x80?text=No+Image'">
+                <div class="search-result-content">
+                    <div class="search-result-title">${anime.title}</div>
+                    <div class="search-result-year">${year}</div>
+                    <div class="search-result-description">${description}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    dropdown. classList.add('active');
+}
+
+// Arama başlatma
 function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.querySelector('.search-btn');
+    const searchBtn = document.querySelector('. search-btn');
+    const dropdown = document.getElementById('searchResultsDropdown');
     
     if (!searchInput || !searchBtn) return;
     
-    searchBtn.addEventListener('click', performSearch);
+    // Debounced live search (300ms gecikme)
+    const debouncedSearch = debounce((value) => {
+        liveSearch(value);
+    }, 300);
     
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+    // Input event - yazdıkça ara
+    searchInput.addEventListener('input', (e) => {
+        debouncedSearch(e. target.value);
+    });
+    
+    // Enter tuşu - ilk sonuca git
+    searchInput. addEventListener('keypress', (e) => {
+        if (e. key === 'Enter') {
             performSearch();
         }
     });
+    
+    // ESC tuşu - dropdown'u kapat
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dropdown) {
+            dropdown. classList.remove('active');
+        }
+    });
+    
+    // Dışarı tıklayınca kapat
+    document. addEventListener('click', (e) => {
+        if (!e.target.closest('.search-box') && dropdown) {
+            dropdown.classList.remove('active');
+        }
+    });
+    
+    // Arama butonu - ilk sonuca git
+    searchBtn.addEventListener('click', performSearch);
 }
 
+// Enter veya buton tıklayınca ilk sonuca git
 async function performSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.toLowerCase(). trim();
     
-    if (! searchTerm) return;
+    if (!searchTerm) return;
     
     console.log('🔍 Arama:', searchTerm);
     
     try {
-        // Önce Supabase'de ara
         const supabaseResults = await AnimeAPI.searchAnimes(searchTerm);
         
         if (supabaseResults && supabaseResults.length > 0) {
@@ -423,21 +536,19 @@ async function performSearch() {
         console.warn('⚠️ Supabase araması başarısız, yerel aramaya geçiliyor');
     }
     
-    // Supabase'de bulunamazsa yerel veride ara
-    const results = allAnimeData.filter(anime => 
+    const results = allAnimeData. filter(anime => 
         anime.title.toLowerCase().includes(searchTerm) ||
-        anime.genre.toLowerCase().includes(searchTerm)
+        anime. genre. toLowerCase().includes(searchTerm)
     );
     
     console.log(`📊 ${results.length} sonuç bulundu`);
     
     if (results.length > 0) {
-        window. location.href = `anime-detail.html?id=${results[0].id}`;
+        window.location.href = `anime-detail.html? id=${results[0].id}`;
     } else {
-        alert('Sonuç bulunamadı!');
+        alert('Sonuç bulunamadı! ');
     }
 }
-
 // ===== HEADER SCROLL EFEKTİ (AYNI KALIYOR) =====
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
@@ -454,3 +565,4 @@ window.addEventListener('scroll', () => {
 });
 
 console.log('✨ AnimEZ yüklendi!  Toplam', allAnimeData.length, 'anime mevcut.');
+
