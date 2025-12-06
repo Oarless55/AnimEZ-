@@ -51,13 +51,15 @@ body {
 }
 
 /* Search Box */
+/* Search Box */
 .search-box {
+    position: relative ! important; /* ✅ DROPDOWN İÇİN GEREKLİ */
     flex: 1;
     max-width: 400px;
     display: flex;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
-    overflow: hidden;
+    overflow: visible; /* ✅ DEĞİŞTİRİLDİ: dropdown görebilmek için */
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -537,24 +539,7 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .anime-card {
-        width: calc(100% - 40px); /* 1 kart */
-    }
-    
-    .section-title {
-        font-size: 20px;
-    }
-}
-    .section-title {
-        font-size: 20px;
-    }
 
-
-/* ===== ARAMA DROPDOWN ===== */
-.search-box {
-    position: relative;
-}
 
 .search-results-dropdown {
     position: absolute;
@@ -654,5 +639,6 @@ body {
 .search-results-dropdown::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 217, 255, 0.5);
 }
+
 
 
