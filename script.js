@@ -1,42 +1,25 @@
-// Backend API URL
+// ===== SUPABASE ENTEGRASYONU =====
+// Backend API URL (eski Flask backend'iniz varsa)
 const API_URL = 'http://localhost:5000';
 
-// Animeleri backend'den çek
-async function loadAnimesFromBackend() {
-    try {
-        const response = await fetch(`${API_URL}/api/animes`);
-        const animes = await response.json();
-        
-        // Mevcut allAnimeData'yı güncelle
-        return animes.map((anime, index) => ({
-            id: anime.id || index + 100,
-            title: anime.title,
-            genre: anime.genre || 'Unknown',
-            episode: anime.episode || 0,
-            image: anime.image || 'https://picsum.photos/300/420',
-            category: anime.genres ? anime.genres.split(',') : ['continue']
-        }));
-    } catch (error) {
-        console.error('Backend\'den anime yüklenemedi:', error);
-        return allAnimeData; // Hata durumunda mevcut veriyi kullan
-    }
-}
-
-// Sayfa yüklendiğinde backend'den veri çek
+// Sayfa yüklendiğinde
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🚀 AnimEZ yükleniyor...');
     
-    // Backend'den animeleri yükle
-    const backendAnimes = await loadAnimesFromBackend();
-    if (backendAnimes.length > 0) {
-        allAnimeData.push(...backendAnimes);
-        console.log('✅ Backend\'den', backendAnimes.length, 'anime yüklendi!');
-    }
+    // Hero slider'ı başlat
+    initializeSlider();
     
-    // ... geri kalan kod aynı kalacak
+    // Supabase'den animeleri yükle
+    await loadAnimesFromSupabase();
+    
+    // Arama fonksiyonunu başlat
+    initializeSearch();
+    
+    console.log('✅ Tüm sistemler yüklendi!');
 });
-// Ana Anime Verisi (Tüm animeler)
-const allAnimeData = [
+
+// Ana Anime Verisi (Varsayılan - Supabase bağlanamazsa kullanılacak)
+let allAnimeData = [
     // Continue Watching + Aksiyon
     { id: 1, title: "SPY×FAMILY", genre: "Spy / Komedi", episode: 12, image: "https://picsum.photos/seed/spy-family/300/420", category: ["continue", "action"] },
     { id: 2, title: "Demon Slayer", genre: "Action / Supernatural", episode: 26, image: "https://picsum.photos/seed/demon-slayer/300/420", category: ["continue", "action", "new"] },
@@ -48,12 +31,8 @@ const allAnimeData = [
     { id: 8, title: "Bleach", genre: "Action / Supernatural", episode: 366, image: "https://picsum.photos/seed/bleach/300/420", category: ["continue", "action"] },
     { id: 9, title: "Tokyo Revengers", genre: "Action / Drama", episode: 24, image: "https://picsum.photos/seed/tokyo-rev/300/420", category: ["continue", "action", "new"] },
     { id: 10, title: "Naruto Shippuden", genre: "Action / Adventure", episode: 500, image: "https://picsum.photos/seed/naruto/300/420", category: ["continue", "action"] },
-    
-    // Aksiyon devam
     { id: 11, title: "Dragon Ball Super", genre: "Action / Adventure", episode: 131, image: "https://picsum.photos/seed/dbsuper/300/420", category: ["action"] },
     { id: 12, title: "Black Clover", genre: "Action / Fantasy", episode: 170, image: "https://picsum.photos/seed/blackclover/300/420", category: ["action", "new"] },
-    
-    // Isekai
     { id: 13, title: "Re:Zero", genre: "Fantasy / Thriller / Isekai", episode: 50, image: "https://picsum.photos/seed/rezero/300/420", category: ["isekai", "new"] },
     { id: 14, title: "Overlord", genre: "Action / Fantasy / Isekai", episode: 52, image: "https://picsum.photos/seed/overlord/300/420", category: ["isekai"] },
     { id: 15, title: "Sword Art Online", genre: "Action / Fantasy / Isekai", episode: 96, image: "https://picsum.photos/seed/sao/300/420", category: ["isekai", "romance"] },
@@ -64,8 +43,6 @@ const allAnimeData = [
     { id: 20, title: "No Game No Life", genre: "Fantasy / Isekai", episode: 12, image: "https://picsum.photos/seed/ngnl/300/420", category: ["isekai"] },
     { id: 21, title: "Log Horizon", genre: "Adventure / Isekai", episode: 62, image: "https://picsum.photos/seed/loghorizon/300/420", category: ["isekai"] },
     { id: 22, title: "The Rising of the Shield Hero", genre: "Action / Isekai", episode: 38, image: "https://picsum.photos/seed/shield/300/420", category: ["isekai", "new"] },
-    
-    // Romance
     { id: 23, title: "Your Name", genre: "Romance / Drama", episode: 1, image: "https://picsum.photos/seed/yourname/300/420", category: ["romance"] },
     { id: 24, title: "Kaguya-sama: Love Is War", genre: "Romance / Comedy", episode: 36, image: "https://picsum.photos/seed/kaguya/300/420", category: ["romance", "new"] },
     { id: 25, title: "Horimiya", genre: "Romance / Slice of Life", episode: 13, image: "https://picsum.photos/seed/horimiya/300/420", category: ["romance"] },
@@ -74,16 +51,12 @@ const allAnimeData = [
     { id: 28, title: "Fruits Basket", genre: "Romance / Drama", episode: 63, image: "https://picsum.photos/seed/fruitsbasket/300/420", category: ["romance"] },
     { id: 29, title: "Clannad", genre: "Romance / Drama", episode: 47, image: "https://picsum.photos/seed/clannad/300/420", category: ["romance"] },
     { id: 30, title: "Rent-a-Girlfriend", genre: "Romance / Comedy", episode: 24, image: "https://picsum.photos/seed/kanojo/300/420", category: ["romance", "new"] },
-    
-    // Korku / Horror
     { id: 31, title: "Tokyo Ghoul", genre: "Action / Horror", episode: 48, image: "https://picsum.photos/seed/tokyoghoul/300/420", category: ["horror", "action"] },
     { id: 32, title: "Another", genre: "Horror / Mystery", episode: 12, image: "https://picsum.photos/seed/another/300/420", category: ["horror"] },
     { id: 33, title: "Parasyte", genre: "Horror / Sci-Fi", episode: 24, image: "https://picsum.photos/seed/parasyte/300/420", category: ["horror", "new"] },
     { id: 34, title: "Higurashi When They Cry", genre: "Horror / Mystery", episode: 50, image: "https://picsum.photos/seed/higurashi/300/420", category: ["horror"] },
     { id: 35, title: "Corpse Party", genre: "Horror / Supernatural", episode: 4, image: "https://picsum.photos/seed/corpseparty/300/420", category: ["horror"] },
     { id: 36, title: "Elfen Lied", genre: "Horror / Drama", episode: 13, image: "https://picsum.photos/seed/elfenlied/300/420", category: ["horror"] },
-    
-    // Diğerleri
     { id: 37, title: "Death Note", genre: "Mystery / Psychological", episode: 37, image: "https://picsum.photos/seed/deathnote/300/420", category: ["continue", "new"] },
     { id: 38, title: "Fullmetal Alchemist", genre: "Action / Fantasy", episode: 64, image: "https://picsum.photos/seed/fma/300/420", category: ["continue", "action"] },
     { id: 39, title: "Hunter x Hunter", genre: "Action / Adventure", episode: 148, image: "https://picsum.photos/seed/hxh/300/420", category: ["continue", "action"] },
@@ -100,38 +73,118 @@ const allAnimeData = [
 // Hero Slider Verileri
 const heroSlides = [
     {
-        title: "Fate/Hollow Ataraxia REMASTERED PC ve Switch için Çıkış Tarihi Açıklandı!",
-        description: "Daha önce bu yıl içinde çıkacağı doğrulanan Fate/hollow ataraxia REMASTERED için nihai çıkış tarihi belli oldu. Güncellenmiş sürümü, yüksek çözünürlükle gerçekçi İngilizce ve Basitleştirilmiş Çince yerleştirilmeler ve daha fazlasını içeriyor...",
+        title: "Fate/Hollow Ataraxia REMASTERED PC ve Switch için Çıkış Tarihi Açıklandı! ",
+        description: "Daha önce bu yıl içinde çıkacağı doğrulanan Fate/hollow ataraxia REMASTERED için nihai çıkış tarihi belli oldu. Güncellenmiş sürümü, yüksek çözünürlü.. .",
         category: "Haberler",
         image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1920&h=1080&fit=crop"
     },
     {
-        title: "2025 Kış Sezonu Yeni Anime Duyuruları!",
-        description: "Bu sezon en çok beklenen anime serilerinin çıkış tarihleri belli oldu. Demon Slayer, Jujutsu Kaisen ve daha fazlası sizi bekliyor...",
+        title: "2025 Kış Sezonu Yeni Anime Duyuruları! ",
+        description: "Bu sezon en çok beklenen anime serilerinin çıkış tarihleri belli oldu. Demon Slayer, Jujutsu Kaisen ve daha fazlası sizi bekliyor.. .",
         category: "Duyuru",
         image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1920&h=1080&fit=crop"
     },
     {
-        title: "En Popüler 10 Anime - Kasım 2025",
-        description: "Bu ayın en çok izlenen ve tartışılan anime serileri! Siz de bu heyecana katılın ve favorilerinizi keşfedin...",
+        title: "En Popüler 10 Anime - Aralık 2025",
+        description: "Bu ayın en çok izlenen ve tartışılan anime serileri!  Siz de bu heyecana katılın ve favorilerinizi keşfedin.. .",
         category: "Trendler",
         image: "https://images.unsplash.com/photo-1613376023733-0a73315d9b06?w=1920&h=1080&fit=crop"
     }
 ];
 
-// Kategorilere göre anime filtrele
-function getAnimeByCategory(category) {
-    return allAnimeData.filter(anime => anime.category.includes(category));
+// ===== SUPABASE'DEN ANİMELERİ YÜKLE =====
+async function loadAnimesFromSupabase() {
+    try {
+        console.log('📡 Supabase\'den animeler yükleniyor...');
+        
+        const animes = await AnimeAPI.getAllAnimes();
+        
+        if (animes && animes.length > 0) {
+            // Supabase verilerini mevcut formata dönüştür
+            const supabaseAnimes = animes. map(anime => ({
+                id: anime.id,
+                title: anime.title,
+                genre: anime.genres || 'Unknown',
+                episode: anime.total_episodes || 0,
+                image: anime.poster_url || 'https://via.placeholder.com/300x420',
+                category: categorizeAnime(anime) // Otomatik kategori ata
+            }));
+            
+            // Mevcut verileri Supabase verileriyle değiştir
+            allAnimeData = supabaseAnimes;
+            
+            console.log(`✅ Supabase'den ${animes.length} anime yüklendi!`);
+        } else {
+            console.warn('⚠️ Supabase\'de anime bulunamadı, varsayılan veriler kullanılıyor');
+        }
+    } catch (error) {
+        console.error('❌ Supabase bağlantı hatası:', error);
+        console.log('💡 Varsayılan veriler kullanılıyor');
+    }
+    
+    // Carousel'ları başlat (Supabase verileri veya varsayılan verilerle)
+    initializeCarousels();
 }
 
-// Carousel sınıfı
+// Anime'yi otomatik kategorilere ata
+function categorizeAnime(anime) {
+    const categories = ['continue']; // Varsayılan kategori
+    const genres = anime.genres ?  anime.genres.toLowerCase() : '';
+    
+    // Genre'lere göre kategori ekle
+    if (genres.includes('action') || genres.includes('aksiyon')) categories.push('action');
+    if (genres.includes('isekai')) categories.push('isekai');
+    if (genres.includes('romance') || genres.includes('romantik')) categories.push('romance');
+    if (genres.includes('horror') || genres.includes('korku')) categories.push('horror');
+    
+    // Yeni animeler (2023 ve sonrası)
+    if (anime.year && anime.year >= 2023) categories.push('new');
+    
+    return categories;
+}
+
+// Carousel'ları başlat
+function initializeCarousels() {
+    // Kategorilere göre anime'leri filtrele
+    const continueAnime = getAnimeByCategory('continue');
+    const newEpisodesAnime = getAnimeByCategory('new');
+    const actionAnime = getAnimeByCategory('action');
+    const isekaiAnime = getAnimeByCategory('isekai');
+    const romanceAnime = getAnimeByCategory('romance');
+    const horrorAnime = getAnimeByCategory('horror');
+    
+    console.log('📊 Kategoriler:');
+    console.log('Continue:', continueAnime.length);
+    console.log('Yeni Bölümler:', newEpisodesAnime.length);
+    console. log('Aksiyon:', actionAnime.length);
+    console.log('Isekai:', isekaiAnime.length);
+    console. log('Romance:', romanceAnime.length);
+    console.log('Korku:', horrorAnime.length);
+    
+    // Carousel'ları başlat
+    new AnimeCarousel('continueGrid', 'continuePrevBtn', 'continueNextBtn', 'continuePageInfo', continueAnime);
+    new AnimeCarousel('newEpisodesGrid', 'newEpisodesPrevBtn', 'newEpisodesNextBtn', 'newEpisodesPageInfo', newEpisodesAnime);
+    new AnimeCarousel('actionGrid', 'actionPrevBtn', 'actionNextBtn', 'actionPageInfo', actionAnime);
+    new AnimeCarousel('isekaiGrid', 'isekaiPrevBtn', 'isekaiNextBtn', 'isekaiPageInfo', isekaiAnime);
+    new AnimeCarousel('romanceGrid', 'romancePrevBtn', 'romanceNextBtn', 'romancePageInfo', romanceAnime);
+    new AnimeCarousel('horrorGrid', 'horrorPrevBtn', 'horrorNextBtn', 'horrorPageInfo', horrorAnime);
+    
+    console.log('✅ Tüm carousel\'lar yüklendi!');
+}
+
+// Kategorilere göre anime filtrele
+function getAnimeByCategory(category) {
+    return allAnimeData.filter(anime => anime.category. includes(category));
+}
+
+// ===== CAROUSEL SINIFI (AYNI KALIYOR) =====
 class AnimeCarousel {
     constructor(gridId, prevBtnId, nextBtnId, pageInfoId, animeList) {
         this.gridId = gridId;
-        this.prevBtnId = prevBtnId;
+        this. prevBtnId = prevBtnId;
         this.nextBtnId = nextBtnId;
         this.pageInfoId = pageInfoId;
-        this.animeList = animeList;
+        this. animeList = animeList;
         this.currentIndex = 0;
         this.itemsPerView = 5;
         
@@ -140,12 +193,12 @@ class AnimeCarousel {
     
     init() {
         this.calculateItemsPerView();
-        this.render();
+        this. render();
         this.initializeButtons();
         
         // Resize event
         let resizeTimeout;
-        window.addEventListener('resize', () => {
+        window. addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 this.calculateItemsPerView();
@@ -191,7 +244,7 @@ class AnimeCarousel {
         
         card.innerHTML = `
             <div class="card-image">
-                <img src="${anime.image}" alt="${anime.title}" loading="lazy">
+                <img src="${anime.image}" alt="${anime.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x420? text=No+Image'">
                 <div class="play-overlay">
                     <div class="play-button">▶</div>
                 </div>
@@ -204,7 +257,7 @@ class AnimeCarousel {
         `;
         
         card.addEventListener('click', () => {
-            window.location.href = `anime-detail.html?id=${anime.id}`;
+            window.location.href = `anime-detail.html?id=${anime. id}`;
         });
         
         return card;
@@ -214,10 +267,10 @@ class AnimeCarousel {
         const prevBtn = document.getElementById(this.prevBtnId);
         const nextBtn = document.getElementById(this.nextBtnId);
         
-        if (!prevBtn || !nextBtn) return;
+        if (! prevBtn || !nextBtn) return;
         
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        prevBtn. addEventListener('click', (e) => {
+            e. preventDefault();
             if (this.currentIndex > 0) {
                 this.currentIndex--;
                 this.updatePosition();
@@ -241,8 +294,8 @@ class AnimeCarousel {
     }
     
     updatePosition() {
-        const grid = document.getElementById(this.gridId);
-        const cards = grid.querySelectorAll('.anime-card');
+        const grid = document.getElementById(this. gridId);
+        const cards = grid.querySelectorAll('. anime-card');
         
         if (cards.length === 0) return;
         
@@ -258,7 +311,7 @@ class AnimeCarousel {
     
     updateButtons() {
         const prevBtn = document.getElementById(this.prevBtnId);
-        const nextBtn = document.getElementById(this.nextBtnId);
+        const nextBtn = document.getElementById(this. nextBtnId);
         const maxIndex = Math.max(0, this.animeList.length - this.itemsPerView);
         
         if (this.currentIndex === 0) {
@@ -274,7 +327,7 @@ class AnimeCarousel {
             nextBtn.style.opacity = '0.3';
         } else {
             nextBtn.disabled = false;
-            nextBtn.style.opacity = '1';
+            nextBtn.style. opacity = '1';
         }
     }
     
@@ -286,48 +339,11 @@ class AnimeCarousel {
         const end = Math.min(this.currentIndex + this.itemsPerView, this.animeList.length);
         const total = this.animeList.length;
         
-        pageInfo.innerHTML = `${start} - ${end} of ${total}`;
+        pageInfo. innerHTML = `${start} - ${end} of ${total}`;
     }
 }
 
-// Sayfa yüklendiğinde
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 AnimeCix yükleniyor...');
-    
-    // Hero slider
-    initializeSlider();
-    
-    // Kategorilere göre carousel'ları oluştur
-    const continueAnime = getAnimeByCategory('continue');
-    const newEpisodesAnime = getAnimeByCategory('new');
-    const actionAnime = getAnimeByCategory('action');
-    const isekaiAnime = getAnimeByCategory('isekai');
-    const romanceAnime = getAnimeByCategory('romance');
-    const horrorAnime = getAnimeByCategory('horror');
-    
-    console.log('📊 Kategoriler:');
-    console.log('Continue:', continueAnime.length);
-    console.log('Yeni Bölümler:', newEpisodesAnime.length);
-    console.log('Aksiyon:', actionAnime.length);
-    console.log('Isekai:', isekaiAnime.length);
-    console.log('Romance:', romanceAnime.length);
-    console.log('Korku:', horrorAnime.length);
-    
-    // Carousel'ları başlat
-    new AnimeCarousel('continueGrid', 'continuePrevBtn', 'continueNextBtn', 'continuePageInfo', continueAnime);
-    new AnimeCarousel('newEpisodesGrid', 'newEpisodesPrevBtn', 'newEpisodesNextBtn', 'newEpisodesPageInfo', newEpisodesAnime);
-    new AnimeCarousel('actionGrid', 'actionPrevBtn', 'actionNextBtn', 'actionPageInfo', actionAnime);
-    new AnimeCarousel('isekaiGrid', 'isekaiPrevBtn', 'isekaiNextBtn', 'isekaiPageInfo', isekaiAnime);
-    new AnimeCarousel('romanceGrid', 'romancePrevBtn', 'romanceNextBtn', 'romancePageInfo', romanceAnime);
-    new AnimeCarousel('horrorGrid', 'horrorPrevBtn', 'horrorNextBtn', 'horrorPageInfo', horrorAnime);
-    
-    // Arama
-    initializeSearch();
-    
-    console.log('✅ Tüm carousel\'lar yüklendi!');
-});
-
-// Hero Slider
+// ===== HERO SLIDER (AYNI KALIYOR) =====
 let currentSlide = 0;
 
 function initializeSlider() {
@@ -347,7 +363,7 @@ function initializeSlider() {
 }
 
 function updateSlide() {
-    const dots = document.querySelectorAll('.dot');
+    const dots = document.querySelectorAll('. dot');
     const heroImage = document.querySelector('.hero-image');
     const heroTitle = document.querySelector('.hero-title');
     const heroDescription = document.querySelector('.hero-description');
@@ -370,7 +386,7 @@ function updateSlide() {
     }
 }
 
-// Arama
+// ===== ARAMA (GÜNCELLENDİ - Supabase araması eklenmiş) =====
 function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.querySelector('.search-btn');
@@ -386,14 +402,28 @@ function initializeSearch() {
     });
 }
 
-function performSearch() {
+async function performSearch() {
     const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput.value.toLowerCase().trim();
+    const searchTerm = searchInput.value.toLowerCase(). trim();
     
-    if (!searchTerm) return;
+    if (! searchTerm) return;
     
     console.log('🔍 Arama:', searchTerm);
     
+    try {
+        // Önce Supabase'de ara
+        const supabaseResults = await AnimeAPI.searchAnimes(searchTerm);
+        
+        if (supabaseResults && supabaseResults.length > 0) {
+            console.log(`📊 Supabase'de ${supabaseResults.length} sonuç bulundu`);
+            window.location.href = `anime-detail.html?id=${supabaseResults[0].id}`;
+            return;
+        }
+    } catch (error) {
+        console.warn('⚠️ Supabase araması başarısız, yerel aramaya geçiliyor');
+    }
+    
+    // Supabase'de bulunamazsa yerel veride ara
     const results = allAnimeData.filter(anime => 
         anime.title.toLowerCase().includes(searchTerm) ||
         anime.genre.toLowerCase().includes(searchTerm)
@@ -402,21 +432,20 @@ function performSearch() {
     console.log(`📊 ${results.length} sonuç bulundu`);
     
     if (results.length > 0) {
-        // İlk sonuca git
-        window.location.href = `anime-detail.html?id=${results[0].id}`;
+        window. location.href = `anime-detail.html?id=${results[0].id}`;
     } else {
         alert('Sonuç bulunamadı!');
     }
 }
 
-// Header Scroll Efekti
+// ===== HEADER SCROLL EFEKTİ (AYNI KALIYOR) =====
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
     const currentScroll = window.pageYOffset;
     
     if (currentScroll > lastScroll && currentScroll > 100) {
-        header.style.transform = 'translateY(-100%)';
+        header. style.transform = 'translateY(-100%)';
     } else {
         header.style.transform = 'translateY(0)';
     }
@@ -424,5 +453,4 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-
-console.log('✨ AnimeCix yüklendi! Toplam', allAnimeData.length, 'anime mevcut.')
+console.log('✨ AnimEZ yüklendi!  Toplam', allAnimeData.length, 'anime mevcut.');
