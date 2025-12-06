@@ -550,7 +550,7 @@ body {
         font-size: 20px;
     }
 
-}
+
 /* ===== ARAMA DROPDOWN ===== */
 .search-box {
     position: relative;
@@ -571,11 +571,11 @@ body {
     display: none;
 }
 
-. search-results-dropdown.active {
+.search-results-dropdown.active {
     display: block;
 }
 
-. search-result-item {
+.search-result-item {
     display: flex;
     gap: 12px;
     padding: 12px;
@@ -592,7 +592,7 @@ body {
     border-bottom: none;
 }
 
-. search-result-thumbnail {
+.search-result-thumbnail {
     width: 60px;
     height: 80px;
     border-radius: 6px;
@@ -631,14 +631,14 @@ body {
     overflow: hidden;
 }
 
-. search-no-results {
+.search-no-results {
     padding: 20px;
     text-align: center;
     color: #666;
     font-size: 14px;
 }
 
-. search-results-dropdown::-webkit-scrollbar {
+.search-results-dropdown::-webkit-scrollbar {
     width: 6px;
 }
 
@@ -654,4 +654,5 @@ body {
 .search-results-dropdown::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 217, 255, 0.5);
 }
+
 
