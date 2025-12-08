@@ -59,7 +59,7 @@ const animeTitleMap = {
 };
 
 function getAnimeIdFromURL() {
-    const params = new URLSearchParams(window. location.search);
+    const params = new URLSearchParams(window.location.search);
     return params.get('id');
 }
 
@@ -110,7 +110,7 @@ async function loadAnimeDetails(animeId) {
             };
             console.log('⚠️ Varsayılan şablon kullanılıyor:', animeTitle);
         } else {
-            console.log('✅ Yerel veritabanından anime yüklendi:', anime. title);
+            console.log('✅ Yerel veritabanından anime yüklendi:', anime.title);
         }
     }
     
@@ -139,10 +139,10 @@ function convertSupabaseToLocalFormat(supabaseAnime) {
         anime.tags = supabaseAnime.anime_tags. map(at => at.tags.name);
     }
 
-    if (supabaseAnime.seasons && supabaseAnime.seasons. length > 0) {
+    if (supabaseAnime.seasons && supabaseAnime.seasons.length > 0) {
         anime.seasons = supabaseAnime.seasons.map(season => ({
-            season: season. season_number,
-            episodes: season. episodes.map(ep => ({
+            season: season.season_number,
+            episodes: season.episodes.map(ep => ({
                 id: ep.id,
                 number: ep.episode_number,
                 title: ep.title,
@@ -168,7 +168,7 @@ function displayAnimeDetails(anime, isFromSupabase = false) {
     const animePoster = document.getElementById('animePoster');
     if (animePoster) {
         animePoster.src = anime.poster || 'https://via.placeholder.com/300x420';
-        animePoster.alt = anime. title;
+        animePoster.alt = anime.title;
         animePoster.onerror = function() {
             this.src = 'https://via.placeholder.com/300x420? text=No+Image';
         };
@@ -245,8 +245,8 @@ function loadEpisodes(season, isFromSupabase) {
         return;
     }
     
-    season. episodes.forEach(episode => {
-        const episodeItem = createEpisodeItem(episode, season. season, isFromSupabase);
+    season.episodes.forEach(episode => {
+        const episodeItem = createEpisodeItem(episode, season.season, isFromSupabase);
         episodesList.appendChild(episodeItem);
     });
 }
@@ -270,10 +270,10 @@ function createEpisodeItem(episode, seasonNumber, isFromSupabase) {
         </div>
         <div class="episode-info">
             <div class="episode-title-row">
-                <h3 class="episode-title">${episode. title}</h3>
+                <h3 class="episode-title">${episode.title}</h3>
                 <div>
                     <span class="episode-number">${episode.number}.  Bölüm</span>
-                    <span class="episode-date">${episode. date || ''}</span>
+                    <span class="episode-date">${episode.date || ''}</span>
                 </div>
             </div>
             <p class="episode-description">${episode.description || ''}</p>
@@ -298,7 +298,7 @@ function initializeEventListeners() {
     const watchNowBtn = document.getElementById('watchNowBtn');
     if (watchNowBtn) {
         watchNowBtn.addEventListener('click', () => {
-            const firstEpisode = document.querySelector('. episode-item');
+            const firstEpisode = document.querySelector('.episode-item');
             if (firstEpisode) firstEpisode.click();
         });
     }
@@ -319,15 +319,15 @@ function initializeEventListeners() {
     
     // ✅ FAVORİ VE BOOKMARK BUTONLARI
     const favoriteBtn = document.querySelector('.favorite-btn');
-    const bookmarkBtn = document.querySelector('. bookmark-btn');
+    const bookmarkBtn = document.querySelector('.bookmark-btn');
     
     if (favoriteBtn) {
         favoriteBtn.addEventListener('click', function() {
             this.classList.toggle('active');
             const svg = this.querySelector('svg');
-            if (this. classList.contains('active')) {
+            if (this.classList.contains('active')) {
                 svg.setAttribute('fill', 'currentColor');
-                console. log('❤️ Favorilere eklendi');
+                console.log('❤️ Favorilere eklendi');
             } else {
                 svg.setAttribute('fill', 'none');
                 console.log('💔 Favorilerden çıkarıldı');
@@ -337,7 +337,7 @@ function initializeEventListeners() {
     
     if (bookmarkBtn) {
         bookmarkBtn.addEventListener('click', function() {
-            this. classList.toggle('active');
+            this.classList.toggle('active');
             const svg = this.querySelector('svg');
             if (this.classList.contains('active')) {
                 svg.setAttribute('fill', 'currentColor');
@@ -353,18 +353,18 @@ function initializeEventListeners() {
 // ✅ BÖLÜM OYNAT
 function playEpisode(episode, season, isFromSupabase) {
     const animeId = getAnimeIdFromURL();
-    console.log(`▶️ Oynatılıyor: S${season}E${episode. number} - ${episode.title}`);
+    console.log(`▶️ Oynatılıyor: S${season}E${episode.number} - ${episode.title}`);
     
     if (isFromSupabase && episode.id) {
         window.location.href = `episode-watch.html?anime=${animeId}&episode=${episode.id}`;
     } else {
-        window.location.href = `episode-watch.html?anime=${animeId}&episode=${episode. number}&season=${season}`;
+        window.location.href = `episode-watch.html?anime=${animeId}&episode=${episode.number}&season=${season}`;
     }
 }
 
 // ✅ EPISODE CARD TIKLAMA (Opsiyonel - farklı card yapısı varsa)
 document.addEventListener('click', function(e) {
-    if (e. target.closest('.episode-card')) {
+    if (e.target.closest('.episode-card')) {
         const episodeCard = e.target.closest('.episode-card');
         const episodeNumber = episodeCard.dataset.episode;
         const animeId = new URLSearchParams(window.location.search).get('id');
@@ -374,6 +374,7 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
 
 
 
