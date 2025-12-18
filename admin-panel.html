@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - AnimEZ</title>
     
-    <!-- Supabase CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-client.js"></script>
-    
     <style>
         * {
             margin: 0;
@@ -18,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -33,59 +29,53 @@
             text-align: center;
             margin-bottom: 30px;
             font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
+        /* Tabs */
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 10px;
+            flex-wrap:  wrap;
         }
 
         .tab-btn {
-            flex: 1;
-            padding: 15px;
             background: rgba(255,255,255,0.2);
             border: none;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px 24px;
             border-radius: 8px;
+            color: white;
             cursor: pointer;
-            transition: all 0. 3s;
+            font-size: 16px;
+            transition: all 0.3s;
         }
 
         .tab-btn:hover {
-            background: rgba(255,255,255,0. 3);
+            background: rgba(255,255,255,0.3);
             transform: translateY(-2px);
         }
 
         .tab-btn.active {
-            background: #fff;
+            background: white;
             color: #667eea;
+            font-weight: bold;
         }
 
+        /* Tab Content */
         .tab-content {
             display: none;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: white;
+            padding:  30px;
+            border-radius:  12px;
+            box-shadow:  0 10px 30px rgba(0,0,0,0.2);
         }
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.3s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
@@ -93,331 +83,301 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight:  600;
             color: #333;
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        textarea,
-        select {
+        input, textarea, select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: border 0.3s;
         }
 
-        input:focus,
-        textarea:focus,
-        select:focus {
+        input:focus, textarea: focus, select:focus {
             outline: none;
             border-color: #667eea;
         }
 
         textarea {
-            min-height: 120px;
             resize: vertical;
-            font-family: monospace;
+            min-height: 100px;
         }
 
-        .btn {
+        button[type="submit"] {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            padding: 15px 30px;
+            color: white;
             border: none;
-            border-radius: 8px;
+            padding: 14px 32px;
+            border-radius:  8px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
+            transition: transform 0.2s;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        button[type="submit"]:hover {
+            transform:  translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
+        /* Result Display */
         .result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 8px;
-            background: #f5f5f5;
-            max-height: 300px;
-            overflow-y: auto;
+            display: none;
         }
 
         .result-item {
-            padding: 8px;
-            margin-bottom: 5px;
+            padding: 10px;
+            margin:  5px 0;
             border-radius: 5px;
-            font-size: 14px;
+            background: #f0f0f0;
         }
 
         .result-item.success {
             background: #d4edda;
             color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
         .result-item.error {
             background: #f8d7da;
-            color: #721c24;
+            color:  #721c24;
+            border: 1px solid #f5c6cb;
         }
 
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .helper-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
         }
 
-        .info-box {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #2196f3;
-            margin-bottom: 20px;
-        }
-
-        .info-box h3 {
-            color: #1976d2;
-            margin-bottom: 8px;
-        }
-
-        .info-box p {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .tabs {
-                flex-direction: column;
-            }
+        .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎬 AnimEZ Admin Panel</h1>
-
+        
         <!-- Tabs -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('anime')">➕ Anime Ekle</button>
-            <button class="tab-btn" onclick="switchTab('episode')">📺 Bölüm Ekle</button>
-            <button class="tab-btn" onclick="switchTab('video')">🎥 Video Kaynağı Ekle</button>
+            <button class="tab-btn" onclick="switchTab('season')">📺 Sezon Ekle</button>
+            <button class="tab-btn" onclick="switchTab('episode')">🎞️ Bölüm Ekle</button>
+            <button class="tab-btn" onclick="switchTab('video')">▶️ Video Kaynağı Ekle</button>
             <button class="tab-btn" onclick="switchTab('fansub')">🔰 Fansub Ekle</button>
         </div>
 
-        <!-- Tab 1: Anime Ekle -->
+        <!-- Anime Ekleme Tab -->
         <div id="anime-tab" class="tab-content active">
-            <div class="info-box">
-                <h3>📌 Anime Ekleme</h3>
-                <p>Yeni bir anime eklemek için aşağıdaki formu doldurun.  Tüm alanlar zorunludur.</p>
-            </div>
-
+            <h2>➕ Yeni Anime Ekle</h2>
             <form id="addAnimeForm">
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Anime Adı *</label>
-                        <input type="text" id="animeTitle" placeholder="SPY×FAMILY" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Orijinal Başlık</label>
-                        <input type="text" id="animeOriginalTitle" placeholder="スパイファミリー">
-                    </div>
+                <div class="form-group">
+                    <label>Anime Adı *</label>
+                    <input type="text" id="animeTitle" required>
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Yıl *</label>
-                        <input type="number" id="animeYear" placeholder="2022" min="1900" max="2100" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Rating (0-10)</label>
-                        <input type="number" id="animeRating" placeholder="8. 5" step="0.1" min="0" max="10">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Orijinal Adı</label>
+                    <input type="text" id="animeOriginalTitle">
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Türler *</label>
-                        <input type="text" id="animeGenres" placeholder="Action / Comedy / Drama" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Stüdyo</label>
-                        <input type="text" id="animeStudio" placeholder="Wit Studio">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Yıl *</label>
+                    <input type="number" id="animeYear" required min="1900" max="2030">
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Süre</label>
-                        <input type="text" id="animeDuration" placeholder="24 dakika">
-                    </div>
-                    <div class="form-group">
-                        <label>Toplam Bölüm</label>
-                        <input type="number" id="animeTotalEpisodes" placeholder="12" min="1">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Türler *</label>
+                    <input type="text" id="animeGenres" required placeholder="Action, Comedy, Drama">
+                    <div class="helper-text">Virgülle ayırın</div>
                 </div>
-
+                
+                <div class="form-group">
+                    <label>Stüdyo</label>
+                    <input type="text" id="animeStudio">
+                </div>
+                
+                <div class="form-group">
+                    <label>Rating (0-10)</label>
+                    <input type="number" id="animeRating" step="0.1" min="0" max="10">
+                </div>
+                
                 <div class="form-group">
                     <label>Açıklama</label>
-                    <textarea id="animeDescription" placeholder="Anime hakkında detaylı açıklama... "></textarea>
+                    <textarea id="animeDescription"></textarea>
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Poster URL</label>
-                        <input type="text" id="animePoster" placeholder="https://... ">
-                    </div>
-                    <div class="form-group">
-                        <label>Arkaplan URL</label>
-                        <input type="text" id="animeBackground" placeholder="https://...">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Poster URL</label>
+                    <input type="url" id="animePoster">
                 </div>
-
-                <button type="submit" class="btn">✨ Anime Ekle</button>
+                
+                <div class="form-group">
+                    <label>Arkaplan URL</label>
+                    <input type="url" id="animeBackground">
+                </div>
+                
+                <button type="submit">Anime Ekle</button>
+                <div id="animeResult" class="result"></div>
             </form>
-
-            <div id="animeResult" class="result" style="display:none;"></div>
         </div>
 
-        <!-- Tab 2: Bölüm Ekle -->
-        <div id="episode-tab" class="tab-content">
-            <div class="info-box">
-                <h3>📌 Bölüm Ekleme</h3>
-                <p>Önce anime ve sezon ID'lerini öğrenmeniz gerekiyor. Supabase Table Editor'den kontrol edin.</p>
-            </div>
-
-            <form id="addEpisodeForm">
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Season ID *</label>
-                        <input type="number" id="seasonId" placeholder="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Bölüm Numarası *</label>
-                        <input type="number" id="episodeNumber" placeholder="1" min="1" required>
-                    </div>
+        <!-- Sezon Ekleme Tab -->
+        <div id="season-tab" class="tab-content">
+            <h2>📺 Sezon Ekle</h2>
+            <form id="addSeasonForm">
+                <div class="form-group">
+                    <label>Anime ID *</label>
+                    <input type="number" id="seasonAnimeId" required>
+                    <div class="helper-text">Anime ekledikten sonra aldığınız ID</div>
                 </div>
+                
+                <button type="submit">Sezon(lar) Ekle</button>
+                <div id="seasonResult" class="result"></div>
+            </form>
+        </div>
 
+        <!-- Bölüm Ekleme Tab -->
+        <div id="episode-tab" class="tab-content">
+            <h2>🎞️ Bölüm Ekle</h2>
+            <form id="addEpisodeForm">
+                <div class="form-group">
+                    <label>Sezon ID *</label>
+                    <input type="number" id="episodeSeasonId" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Bölüm Numarası *</label>
+                    <input type="number" id="episodeNumber" required min="1">
+                </div>
+                
                 <div class="form-group">
                     <label>Bölüm Başlığı *</label>
-                    <input type="text" id="episodeTitle" placeholder="Operasyon Strix" required>
+                    <input type="text" id="episodeTitle" required>
                 </div>
-
+                
                 <div class="form-group">
                     <label>Açıklama</label>
-                    <textarea id="episodeDescription" placeholder="Bölüm açıklaması..."></textarea>
+                    <textarea id="episodeDescription"></textarea>
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Thumbnail URL</label>
-                        <input type="text" id="episodeThumbnail" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label>Yayın Tarihi</label>
-                        <input type="text" id="episodeDate" placeholder="9/4/2022">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Thumbnail URL</label>
+                    <input type="url" id="episodeThumbnail">
                 </div>
-
-                <button type="submit" class="btn">✨ Bölüm Ekle</button>
+                
+                <div class="form-group">
+                    <label>Yayın Tarihi</label>
+                    <input type="date" id="episodeDate">
+                </div>
+                
+                <button type="submit">Bölüm Ekle</button>
+                <div id="episodeResult" class="result"></div>
             </form>
-
-            <div id="episodeResult" class="result" style="display:none;"></div>
         </div>
 
-        <!-- Tab 3: Video Kaynağı Ekle -->
+        <!-- Video Kaynağı Ekleme Tab -->
         <div id="video-tab" class="tab-content">
-            <div class="info-box">
-                <h3>📌 Video Kaynağı Ekleme</h3>
-                <p>Her satıra bir video linki yazın. Sistem otomatik olarak kaynak tipini algılayacak.</p>
-            </div>
-
+            <h2>▶️ Video Kaynağı Ekle</h2>
             <form id="addVideoForm">
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Episode ID *</label>
-                        <input type="number" id="videoEpisodeId" placeholder="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Fansub ID *</label>
-                        <input type="number" id="videoFansubId" placeholder="1" value="1" required>
-                    </div>
-                </div>
-
                 <div class="form-group">
-                    <label>Video Linkleri * (Her satırda bir link)</label>
-                    <textarea id="videoLinks" placeholder="https://drive.google.com/... 
-https://ok.ru/video/...
-https://dai.ly/...
-https://www.mp4upload.com/..." required></textarea>
+                    <label>Bölüm ID *</label>
+                    <input type="number" id="videoEpisodeId" required>
                 </div>
-
+                
                 <div class="form-group">
-                    <label>Kalite</label>
-                    <select id="videoQuality">
-                        <option value="1080p">1080p</option>
-                        <option value="720p">720p</option>
-                        <option value="480p">480p</option>
-                        <option value="360p">360p</option>
-                    </select>
+                    <label>Fansub ID *</label>
+                    <input type="number" id="videoFansubId" required>
                 </div>
-
-                <button type="submit" class="btn">✨ Video Kaynakları Ekle</button>
+                
+                <div class="divider"></div>
+                <h3>Video Kaynakları</h3>
+                
+                <div class="form-group">
+                    <label>VidMoly URL</label>
+                    <input type="url" id="videoVidmoly" placeholder="https://vidmoly.to/embed-xxx.html">
+                </div>
+                
+                <div class="form-group">
+                    <label>Filemoon URL</label>
+                    <input type="url" id="videoFilemoon" placeholder="https://filemoon.sx/e/xxx">
+                </div>
+                
+                <div class="form-group">
+                    <label>Mail. ru URL</label>
+                    <input type="url" id="videoMailru" placeholder="https://my.mail.ru/video/embed/xxx">
+                </div>
+                
+                <div class="form-group">
+                    <label>Sibnet URL</label>
+                    <input type="url" id="videoSibnet" placeholder="https://video.sibnet.ru/shell.php?videoid=xxx">
+                </div>
+                
+                <button type="submit">Video Kaynakları Ekle</button>
+                <div id="videoResult" class="result"></div>
             </form>
-
-            <div id="videoResult" class="result" style="display:none;"></div>
         </div>
 
-        <!-- Tab 4: Fansub Ekle -->
+        <!-- Fansub Ekleme Tab -->
         <div id="fansub-tab" class="tab-content">
-            <div class="info-box">
-                <h3>📌 Fansub Grubu Ekleme</h3>
-                <p>Yeni bir fansub grubu ekleyin. Daha sonra video eklerken bu fansub'ı seçebilirsiniz.</p>
-            </div>
-
+            <h2>🔰 Fansub Ekle</h2>
             <form id="addFansubForm">
                 <div class="form-group">
                     <label>Fansub Adı *</label>
-                    <input type="text" id="fansubName" placeholder="ShiroSubs" required>
+                    <input type="text" id="fansubName" required placeholder="Örn:  TurkAnime">
                 </div>
-
+                
                 <div class="form-group">
-                    <label>Ekip Bilgisi</label>
-                    <textarea id="fansubCredits" placeholder="Çevirmen: ...  / Encode: ... / Redakte: ..."></textarea>
+                    <label>Credits</label>
+                    <textarea id="fansubCredits" placeholder="Çevirmen, Editör vb."></textarea>
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Discord Linki</label>
-                        <input type="text" id="fansubDiscord" placeholder="https://discord. gg/...">
-                    </div>
-                    <div class="form-group">
-                        <label>Rating (0-10)</label>
-                        <input type="number" id="fansubRating" placeholder="9. 5" step="0.1" min="0" max="10">
-                    </div>
+                
+                <div class="form-group">
+                    <label>Discord Link</label>
+                    <input type="url" id="fansubDiscord" placeholder="https://discord.gg/xxx">
                 </div>
-
-                <button type="submit" class="btn">✨ Fansub Ekle</button>
+                
+                <div class="form-group">
+                    <label>İkon Emoji</label>
+                    <input type="text" id="fansubIcon" placeholder="🔰" maxlength="2">
+                </div>
+                
+                <div class="form-group">
+                    <label>Rating (0-10)</label>
+                    <input type="number" id="fansubRating" step="0.1" min="0" max="10" value="8.0">
+                </div>
+                
+                <button type="submit">Fansub Ekle</button>
+                <div id="fansubResult" class="result"></div>
             </form>
-
-            <div id="fansubResult" class="result" style="display:none;"></div>
         </div>
     </div>
 
-    <script src="admin-panel.js"></script>
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Önce supabase-client.js sonra admin-panel.js yükle -->
+    <script>
+        // Supabase yüklenene kadar bekle
+        window.addEventListener('load', function() {
+            const script1 = document.createElement('script');
+            script1.src = 'supabase-client.js';
+            script1.onload = function() {
+                const script2 = document.createElement('script');
+                script2.src = 'admin-panel.js';
+                document.body.appendChild(script2);
+            };
+            document.body.appendChild(script1);
+        });
+    </script>
 </body>
 </html>
