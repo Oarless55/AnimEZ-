@@ -1,12 +1,10 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnimeZ - Anime İzleme Sitesi</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-client.js"></script>
 </head>
 <body>
     <!-- Header / Navigation -->
@@ -19,14 +17,12 @@
                     </a>
                 </div>
                 <div class="search-box">
-    <input type="text" placeholder="Bir anime ara..." id="searchInput">
-    <button class="search-btn">🔍</button>
-    
-    <!-- ✅ YENİ: Dropdown Container -->
-    <div class="search-results-dropdown" id="searchResultsDropdown"></div>
-</div>
-                
-                
+                    <input type="text" placeholder="Bir anime ara..." id="searchInput">
+                    <button class="search-btn">🔍</button>
+                    
+                    <!-- ✅ YENİ:  Dropdown Container -->
+                    <div class="search-results-dropdown" id="searchResultsDropdown"></div>
+                </div>
                 
                 <nav class="nav-menu">
                     <a href="index.html" class="nav-link">Animeler</a>
@@ -53,9 +49,9 @@
         <div class="hero-content">
             <div class="container">
                 <span class="category-badge">Haberler</span>
-                <h2 class="hero-title">Fate/Hollow Ataraxia REMASTERED PC ve Switch için Çıkış Tarihi Açıklandı!</h2>
+                <h2 class="hero-title">Fate/Hollow Ataraxia REMASTERED PC ve Switch için Çıkış Tarihi Açıklandı! </h2>
                 <p class="hero-description">
-                    Daha önce bu yıl içinde çıkacağı doğrularan Fate/hollow ataraxia REMASTERED için nihai çıkış tarihi belli oldu. Güncellenmiş sürümü, yüksek çözünürlükle gerçekçi İngilizce ve Basitleştirilmiş Çince yerleştirilmeler ve daha fazlasını içeriyor. 2014 tarihli sürümü temel alan oyun, 7 Ağustos'ta Nintendo Switch ve PC (Steam) platformlarında çıkış yapacak...
+                    Daha önce bu yıl içinde çıkacağı doğrularan Fate/hollow ataraxia REMASTERED için nihai çıkış tarihi belli oldu.  Güncellenmiş sürümü, yüksek çözünürlükle gerçekçi İngilizce ve Basitleştirilmiş Çince yerleştirilmeler ve daha fazlasını içeriyor.  2014 tarihli sürümü temel alan oyun, 7 Ağustos'ta Nintendo Switch ve PC (Steam) platformlarında çıkış yapacak... 
                 </p>
                 <button class="read-more-btn">more</button>
             </div>
@@ -189,7 +185,41 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <!-- ✅ DÜZELTME:  Scriptleri doğru sırayla yükle -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Supabase library'nin tam yüklenmesini bekle
+        (function waitForSupabase() {
+            if (typeof window.supabase !== 'undefined') {
+                console.log('✅ Supabase CDN yüklendi');
+                
+                // supabase-client.js'i yükle
+                const script1 = document.createElement('script');
+                script1.src = 'supabase-client.js';
+                script1.onload = function() {
+                    console.log('✅ supabase-client.js yüklendi');
+                    
+                    // script.js'i yükle
+                    const script2 = document.createElement('script');
+                    script2.src = 'script.js';
+                    script2.onload = function() {
+                        console.log('✅ script.js yüklendi');
+                    };
+                    script2.onerror = function() {
+                        console.error('❌ script.js yüklenemedi');
+                    };
+                    document.body.appendChild(script2);
+                };
+                script1.onerror = function() {
+                    console.error('❌ supabase-client.js yüklenemedi');
+                };
+                document.body.appendChild(script1);
+            } else {
+                // Henüz yüklenmediyse 50ms sonra tekrar kontrol et
+                setTimeout(waitForSupabase, 50);
+            }
+        })();
+    </script>
 </body>
 </html>
 
