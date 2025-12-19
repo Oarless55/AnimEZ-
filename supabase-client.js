@@ -3,14 +3,14 @@
 const SUPABASE_URL = "https://keeundopxvrmnapbjlmo.supabase.co";
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZXVuZG9weHZybW5hcGJqbG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5MTc2ODMsImV4cCI6MjA4MDQ5MzY4M30.EWDJW7lCwIcrJKmoFZYMQC6EJ9fsXqG1onUhcEjMOEg';
 
-// Supabase client'ı başlat
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ✅ DÜZELTME: Değişken adını 'supabaseClient' yaptık (çakışma önlendi)
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // API Helper Functions
 const AnimeAPI = {
     // Tüm animeleri getir
     async getAllAnimes() {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('animes')
             .select('*')
             .order('created_at', { ascending: false });
@@ -24,7 +24,7 @@ const AnimeAPI = {
 
     // Tek bir anime getir (detaylı - sezonlar ve bölümlerle)
     async getAnimeById(animeId) {
-        const { data:  anime, error:  animeError } = await supabase
+        const { data:  anime, error:  animeError } = await supabaseClient
             .from('animes')
             .select(`
                 *,
@@ -41,7 +41,7 @@ const AnimeAPI = {
         }
 
         // Sezonları ve bölümleri getir
-        const { data: seasons, error: seasonsError } = await supabase
+        const { data: seasons, error: seasonsError } = await supabaseClient
             .from('seasons')
             .select(`
                 *,
@@ -61,7 +61,7 @@ const AnimeAPI = {
             // Her sezondaki bölümleri sırala
             seasons.forEach(season => {
                 if (season.episodes) {
-                    season.episodes. sort((a, b) => a.episode_number - b.episode_number);
+                    season.episodes.sort((a, b) => a.episode_number - b.episode_number);
                 }
             });
             anime.seasons = seasons;
@@ -72,7 +72,7 @@ const AnimeAPI = {
 
     // Bölüm video kaynaklarını getir
     async getEpisodeVideoSources(episodeId) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('video_sources')
             .select(`
                 *,
@@ -97,7 +97,7 @@ const AnimeAPI = {
 
     // Anime ara
     async searchAnimes(query) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('animes')
             .select('*')
             .or(`title.ilike.%${query}%,original_title.ilike.%${query}%`)
@@ -112,7 +112,7 @@ const AnimeAPI = {
 
     // Belirli bir bölümü ID ile getir
     async getEpisodeById(episodeId) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('episodes')
             .select(`
                 *,
@@ -139,11 +139,11 @@ const AnimeAPI = {
 
     // Bir sezondaki tüm bölümleri getir
     async getEpisodesBySeasonId(seasonId) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('episodes')
             .select('*')
             .eq('season_id', seasonId)
-            .order('episode_number', { ascending: true });
+            .order('episode_number', { ascending:  true });
         
         if (error) {
             console.error('Error fetching episodes:', error);
@@ -153,4 +153,4 @@ const AnimeAPI = {
     }
 };
 
-console.log('✅ Supabase Client başarıyla yüklendi! ');
+console.log('✅ Supabase Client başarıyla yüklendi!');
