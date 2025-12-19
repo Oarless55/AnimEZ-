@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -6,8 +6,6 @@
     <title id="pageTitle">Anime Detay - AnimEZ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="detail-style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-client.js"></script>
 </head>
 <body>
     <!-- Header / Navigation -->
@@ -112,7 +110,7 @@
                     <div class="anime-description">
                         <h3>Konu</h3>
                         <p id="animeDescription">
-                            Anime açıklaması buraya gelecek...
+                            Anime açıklaması buraya gelecek... 
                         </p>
                     </div>
 
@@ -129,7 +127,7 @@
                         22 tür daha göster ▼
                     </button>
                 </div>
-            </div>
+            </div>.
         </div>
     </section>
 
@@ -137,7 +135,7 @@
     <section class="episodes-section">
         <div class="container">
             <div class="episodes-header">
-                <h2>1. Sezon</h2>
+                <h2>1.Sezon</h2>
                 <select class="season-select" id="seasonSelect">
                     <option value="1">1. Sezon</option>
                     <option value="2">2. Sezon</option>
@@ -150,9 +148,27 @@
         </div>
     </section>
 
-    <script src="anime-detail.js"></script>
+    <!-- ✅ DÜZELTME: Scriptleri doğru sırayla yükle -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        (function waitForSupabase() {
+            if (typeof window.supabase !== 'undefined') {
+                const script1 = document.createElement('script');
+                script1.src = 'supabase-client.js';
+                script1.onload = function() {
+                    const script2 = document.createElement('script');
+                    script2.src = 'anime-detail.js';
+                    document.body.appendChild(script2);
+                };
+                document.body.appendChild(script1);
+            } else {
+                setTimeout(waitForSupabase, 50);
+            }
+        })();
+    </script>
 </body>
 </html>
+
 
 
 
