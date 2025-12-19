@@ -1,11 +1,11 @@
 // ===== SUPABASE ENTEGRASYONU =====
 const API_URL = 'http://localhost:5000';
 
-// Sayfa yüklendiğinde
-document.addEventListener('DOMContentLoaded', async function() {
+// ✅ DÜZELTME:  IIFE (Immediately Invoked Function Expression) kullan
+(async function initializeApp() {
     console.log('🚀 AnimEZ yükleniyor...');
     
-    // ✅ DÜZELTME: supabaseClient kontrolü
+    // Supabase kontrolü
     if (typeof supabaseClient === 'undefined' || typeof AnimeAPI === 'undefined') {
         console.warn('⚠️ Supabase henüz yüklenmedi, varsayılan verilerle devam ediliyor...');
         initializeSlider();
@@ -24,58 +24,60 @@ document.addEventListener('DOMContentLoaded', async function() {
     initializeSearch();
     
     console.log('✅ Tüm sistemler yüklendi!');
-});
+})();
 
 // Ana Anime Verisi (Varsayılan)
 let allAnimeData = [
-    { id: 1, title: "SPY×FAMILY", genre: "Spy / Komedi", episode: 12, image: "https://picsum.photos/seed/spy-family/300/420", category: ["continue", "action"] },
-    { id: 2, title: "Demon Slayer", genre: "Action / Supernatural", episode: 26, image: "https://picsum.photos/seed/demon-slayer/300/420", category:  ["continue", "action", "new"] },
+    { id: 1, title: "SPY×FAMILY", genre: "Spy / Komedi", episode: 12, image: "https://picsum.photos/seed/spy-family/300/420", category:  ["continue", "action"] },
+    { id: 2, title: "Demon Slayer", genre: "Action / Supernatural", episode: 26, image: "https://picsum.photos/seed/demon-slayer/300/420", category:   ["continue", "action", "new"] },
     { id: 3, title: "Jujutsu Kaisen", genre: "Action / Dark Fantasy", episode: 24, image: "https://picsum.photos/seed/jujutsu/300/420", category: ["continue", "action", "new"] },
     { id: 4, title: "My Hero Academia", genre: "Action / Superhero", episode: 138, image: "https://picsum.photos/seed/mha/300/420", category: ["continue", "action"] },
-    { id: 5, title: "One Piece", genre: "Adventure / Comedy", episode: 1090, image: "https://picsum.photos/seed/onepiece/300/420", category:  ["continue", "action", "new"] },
-    { id: 6, title: "Attack on Titan", genre: "Action / Dark Fantasy", episode: 87, image: "https://picsum.photos/seed/aot/300/420", category:  ["continue", "action"] },
+    { id: 5, title: "One Piece", genre: "Adventure / Comedy", episode: 1090, image: "https://picsum.photos/seed/onepiece/300/420", category:   ["continue", "action", "new"] },
+    { id: 6, title: "Attack on Titan", genre: "Action / Dark Fantasy", episode: 87, image: "https://picsum.photos/seed/aot/300/420", category:   ["continue", "action"] },
     { id: 7, title: "Chainsaw Man", genre: "Action / Horror", episode: 12, image: "https://picsum.photos/seed/chainsaw/300/420", category: ["continue", "action", "horror"] },
     { id: 8, title: "Bleach", genre: "Action / Supernatural", episode: 366, image: "https://picsum.photos/seed/bleach/300/420", category: ["continue", "action"] },
     { id: 9, title: "Tokyo Revengers", genre: "Action / Drama", episode: 24, image: "https://picsum.photos/seed/tokyo-rev/300/420", category: ["continue", "action", "new"] },
     { id: 10, title: "Naruto Shippuden", genre: "Action / Adventure", episode: 500, image: "https://picsum.photos/seed/naruto/300/420", category: ["continue", "action"] },
-    { id: 11, title: "Dragon Ball Super", genre: "Action / Adventure", episode: 131, image: "https://picsum.photos/seed/dbsuper/300/420", category:  ["action"] },
+    { id: 11, title: "Dragon Ball Super", genre: "Action / Adventure", episode: 131, image: "https://picsum.photos/seed/dbsuper/300/420", category:   ["action"] },
     { id: 12, title: "Black Clover", genre: "Action / Fantasy", episode: 170, image: "https://picsum.photos/seed/blackclover/300/420", category: ["action", "new"] },
-    { id: 13, title: "Re:Zero", genre: "Fantasy / Thriller / Isekai", episode: 50, image: "https://picsum.photos/seed/rezero/300/420", category:  ["isekai", "new"] },
-    { id: 14, title: "Overlord", genre: "Action / Fantasy / Isekai", episode: 52, image: "https://picsum.photos/seed/overlord/300/420", category: ["isekai"] },
+    { id: 13, title: "Re:Zero", genre: "Fantasy / Thriller / Isekai", episode: 50, image: "https://picsum.photos/seed/rezero/300/420", category:   ["isekai", "new"] },
+    { id: 14, title: "Overlord", genre: "Action / Fantasy / Isekai", episode: 52, image: "https://picsum.photos/seed/overlord/300/420", category:  ["isekai"] },
     { id: 15, title: "Sword Art Online", genre: "Action / Fantasy / Isekai", episode: 96, image: "https://picsum.photos/seed/sao/300/420", category: ["isekai", "romance"] },
     { id: 16, title: "The Eminence in Shadow", genre: "Action / Comedy / Isekai", episode: 20, image: "https://picsum.photos/seed/eminence/300/420", category: ["isekai", "new"] },
-    { id: 17, title: "Mushoku Tensei", genre: "Fantasy / Drama / Isekai", episode: 23, image: "https://picsum.photos/seed/mushoku/300/420", category: ["isekai", "new"] },
-    { id: 18, title: "That Time I Got Reincarnated as a Slime", genre: "Fantasy / Isekai", episode: 48, image: "https://picsum.photos/seed/slime/300/420", category:  ["isekai"] },
-    { id: 19, title:  "Konosuba", genre: "Comedy / Fantasy / Isekai", episode: 20, image: "https://picsum.photos/seed/konosuba/300/420", category: ["isekai"] },
-    { id: 20, title: "No Game No Life", genre: "Fantasy / Isekai", episode: 12, image: "https://picsum.photos/seed/ngnl/300/420", category:  ["isekai"] },
-    { id: 21, title:  "Log Horizon", genre: "Adventure / Isekai", episode: 62, image: "https://picsum.photos/seed/loghorizon/300/420", category: ["isekai"] },
-    { id: 22, title: "The Rising of the Shield Hero", genre: "Action / Isekai", episode: 38, image: "https://picsum.photos/seed/shield/300/420", category: ["isekai", "new"] },
-    { id: 23, title: "Your Name", genre: "Romance / Drama", episode: 1, image: "https://picsum.photos/seed/yourname/300/420", category:  ["romance"] },
+    { id: 17, title: "Mushoku Tensei", genre: "Fantasy / Drama / Isekai", episode:  23, image: "https://picsum.photos/seed/mushoku/300/420", category: ["isekai", "new"] },
+    { id: 18, title: "That Time I Got Reincarnated as a Slime", genre:  "Fantasy / Isekai", episode:  48, image: "https://picsum.photos/seed/slime/300/420", category:   ["isekai"] },
+    { id: 19, title:   "Konosuba", genre: "Comedy / Fantasy / Isekai", episode: 20, image: "https://picsum.photos/seed/konosuba/300/420", category: ["isekai"] },
+    { id: 20, title: "No Game No Life", genre: "Fantasy / Isekai", episode: 12, image: "https://picsum.photos/seed/ngnl/300/420", category:   ["isekai"] },
+    { id: 21, title:   "Log Horizon", genre: "Adventure / Isekai", episode:  62, image: "https://picsum.photos/seed/loghorizon/300/420", category:  ["isekai"] },
+    { id: 22, title:  "The Rising of the Shield Hero", genre: "Action / Isekai", episode: 38, image: "https://picsum.photos/seed/shield/300/420", category: ["isekai", "new"] },
+    { id: 23, title: "Your Name", genre: "Romance / Drama", episode: 1, image: "https://picsum.photos/seed/yourname/300/420", category:   ["romance"] },
     { id: 24, title: "Kaguya-sama: Love Is War", genre: "Romance / Comedy", episode: 36, image: "https://picsum.photos/seed/kaguya/300/420", category: ["romance", "new"] },
     { id: 25, title: "Horimiya", genre: "Romance / Slice of Life", episode: 13, image: "https://picsum.photos/seed/horimiya/300/420", category: ["romance"] },
-    { id:  26, title: "Toradora!", genre: "Romance / Comedy", episode: 25, image: "https://picsum.photos/seed/toradora/300/420", category: ["romance"] },
-    { id: 27, title: "My Dress-Up Darling", genre: "Romance / Slice of Life", episode: 12, image: "https://picsum.photos/seed/bisque/300/420", category:  ["romance", "new"] },
-    { id: 28, title: "Fruits Basket", genre: "Romance / Drama", episode: 63, image: "https://picsum.photos/seed/fruitsbasket/300/420", category:  ["romance"] },
-    { id: 29, title: "Clannad", genre: "Romance / Drama", episode: 47, image: "https://picsum.photos/seed/clannad/300/420", category: ["romance"] },
-    { id:  30, title: "Rent-a-Girlfriend", genre: "Romance / Comedy", episode: 24, image: "https://picsum.photos/seed/kanojo/300/420", category: ["romance", "new"] },
-    { id: 31, title:  "Tokyo Ghoul", genre: "Action / Horror", episode: 48, image: "https://picsum.photos/seed/tokyoghoul/300/420", category: ["horror", "action"] },
-    { id: 32, title: "Another", genre: "Horror / Mystery", episode: 12, image:  "https://picsum.photos/seed/another/300/420", category: ["horror"] },
-    { id: 33, title:  "Parasyte", genre: "Horror / Sci-Fi", episode: 24, image: "https://picsum.photos/seed/parasyte/300/420", category: ["horror", "new"] },
-    { id: 34, title: "Higurashi When They Cry", genre: "Horror / Mystery", episode: 50, image: "https://picsum.photos/seed/higurashi/300/420", category: ["horror"] },
-    { id:  35, title: "Corpse Party", genre: "Horror / Supernatural", episode: 4, image: "https://picsum.photos/seed/corpseparty/300/420", category: ["horror"] },
-    { id: 36, title: "Elfen Lied", genre: "Horror / Drama", episode: 13, image: "https://picsum.photos/seed/elfenlied/300/420", category: ["horror"] },
-    { id: 37, title: "Death Note", genre: "Mystery / Psychological", episode: 37, image: "https://picsum.photos/seed/deathnote/300/420", category:  ["continue", "new"] },
-    { id: 38, title: "Fullmetal Alchemist", genre: "Action / Fantasy", episode: 64, image: "https://picsum.photos/seed/fma/300/420", category: ["continue", "action"] },
-    { id: 39, title:  "Hunter x Hunter", genre: "Action / Adventure", episode: 148, image: "https://picsum.photos/seed/hxh/300/420", category: ["continue", "action"] },
-    { id: 40, title:  "Fairy Tail", genre: "Action / Fantasy", episode: 328, image: "https://picsum.photos/seed/fairytail/300/420", category: ["continue"] },
-    { id: 41, title: "Steins;Gate", genre: "Sci-Fi / Thriller", episode: 24, image:  "https://picsum.photos/seed/steinsgate/300/420", category: ["continue"] },
-    { id: 42, title: "Code Geass", genre: "Action / Drama", episode: 50, image: "https://picsum.photos/seed/codegeass/300/420", category: ["continue"] },
-    { id: 43, title: "Mob Psycho 100", genre:  "Action / Comedy", episode: 25, image: "https://picsum.photos/seed/mobpsycho/300/420", category: ["continue", "new"] },
+    { id:   26, title:  "Toradora!", genre: "Romance / Comedy", episode: 25, image: "https://picsum.photos/seed/toradora/300/420", category: ["romance"] },
+    { id: 27, title: "My Dress-Up Darling", genre: "Romance / Slice of Life", episode: 12, image: "https://picsum.photos/seed/bisque/300/420", category:   ["romance", "new"] },
+    { id: 28, title: "Fruits Basket", genre: "Romance / Drama", episode: 63, image: "https://picsum.photos/seed/fruitsbasket/300/420", category:   ["romance"] },
+    { id: 29, title: "Clannad", genre: "Romance / Drama", episode: 47, image: "https://picsum.photos/seed/clannad/300/420", category:  ["romance"] },
+    { id:   30, title: "Rent-a-Girlfriend", genre: "Romance / Comedy", episode: 24, image: "https://picsum.photos/seed/kanojo/300/420", category:  ["romance", "new"] },
+    { id:  31, title:   "Tokyo Ghoul", genre: "Action / Horror", episode: 48, image: "https://picsum.photos/seed/tokyoghoul/300/420", category:  ["horror", "action"] },
+    { id: 32, title:  "Another", genre: "Horror / Mystery", episode: 12, image:   "https://picsum.photos/seed/another/300/420", category: ["horror"] },
+    { id: 33, title:  "Parasyte", genre: "Horror / Sci-Fi", episode: 24, image:  "https://picsum.photos/seed/parasyte/300/420", category: ["horror", "new"] },
+    { id: 34, title:  "Higurashi When They Cry", genre: "Horror / Mystery", episode: 50, image: "https://picsum.photos/seed/higurashi/300/420", category: ["horror"] },
+    { id:   35, title:  "Corpse Party", genre: "Horror / Supernatural", episode: 4, image: "https://picsum.photos/seed/corpseparty/300/420", category: ["horror"] },
+    { id: 36, title:  "Elfen Lied", genre: "Horror / Drama", episode: 13, image: "https://picsum.photos/seed/elfenlied/300/420", category: ["horror"] },
+    { id: 37, title:  "Death Note", genre: "Mystery / Psychological", episode: 37, image: "https://picsum.photos/seed/deathnote/300/420", category:   ["continue", "new"] },
+    { id: 38, title: "Fullmetal Alchemist", genre:  "Action / Fantasy", episode: 64, image: "https://picsum.photos/seed/fma/300/420", category: ["continue", "action"] },
+    { id: 39, title:   "Hunter x Hunter", genre: "Action / Adventure", episode: 148, image: "https://picsum.photos/seed/hxh/300/420", category:  ["continue", "action"] },
+    { id: 40, title:   "Fairy Tail", genre: "Action / Fantasy", episode: 328, image: "https://picsum.photos/seed/fairytail/300/420", category: ["continue"] },
+    { id: 41, title:  "Steins;Gate", genre: "Sci-Fi / Thriller", episode: 24, image:   "https://picsum.photos/seed/steinsgate/300/420", category:  ["continue"] },
+    { id: 42, title: "Code Geass", genre: "Action / Drama", episode: 50, image: "https://picsum.photos/seed/codegeass/300/420", category:  ["continue"] },
+    { id: 43, title: "Mob Psycho 100", genre:   "Action / Comedy", episode: 25, image: "https://picsum.photos/seed/mobpsycho/300/420", category:  ["continue", "new"] },
     { id: 44, title: "Vinland Saga", genre: "Action / Drama", episode: 24, image: "https://picsum.photos/seed/vinland/300/420", category: ["continue", "action", "new"] },
-    { id: 45, title: "Blue Lock", genre: "Sports / Drama", episode: 24, image: "https://picsum.photos/seed/bluelock/300/420", category:  ["continue", "new"] },
+    { id: 45, title: "Blue Lock", genre: "Sports / Drama", episode: 24, image: "https://picsum.photos/seed/bluelock/300/420", category:   ["continue", "new"] },
     { id: 46, title: "Boruto", genre: "Action / Adventure", episode: 293, image: "https://picsum.photos/seed/boruto/300/420", category: ["continue", "action"] },
     { id: 47, title: "Frieren", genre: "Adventure / Fantasy", episode: 28, image: "https://picsum.photos/seed/frieren/300/420", category: ["continue", "new"] }
 ];
+
+
 
 // Hero Slider Verileri
 const heroSlides = [
@@ -549,6 +551,7 @@ window.addEventListener('scroll', () => {
 });
 
 console.log('✨ AnimEZ yüklendi!  Toplam', allAnimeData.length, 'anime mevcut.');
+
 
 
 
