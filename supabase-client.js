@@ -1,7 +1,7 @@
 // ⚠️ BU BİLGİLERİ KENDİ SUPABASE BİLGİLERİNİZLE DEĞİŞTİRİN
 // Project Settings → API'den alın
-const SUPABASE_URL = "https://keeundopxvrmnapbjlmo.supabase.co"; // BURAYA KENDİ URL'NİZİ YAPIŞTIRIN
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZXVuZG9weHZybW5hcGJqbG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5MTc2ODMsImV4cCI6MjA4MDQ5MzY4M30.EWDJW7lCwIcrJKmoFZYMQC6EJ9fsXqG1onUhcEjMOEg'; // BURAYA KENDİ KEY'İNİZİ YAPIŞTIRIN
+const SUPABASE_URL = "https://keeundopxvrmnapbjlmo.supabase.co";
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZXVuZG9weHZybW5hcGJqbG1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5MTc2ODMsImV4cCI6MjA4MDQ5MzY4M30.EWDJW7lCwIcrJKmoFZYMQC6EJ9fsXqG1onUhcEjMOEg';
 
 // Supabase client'ı başlat
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -24,7 +24,7 @@ const AnimeAPI = {
 
     // Tek bir anime getir (detaylı - sezonlar ve bölümlerle)
     async getAnimeById(animeId) {
-        const { data: anime, error: animeError } = await supabase
+        const { data:  anime, error:  animeError } = await supabase
             .from('animes')
             .select(`
                 *,
@@ -61,7 +61,7 @@ const AnimeAPI = {
             // Her sezondaki bölümleri sırala
             seasons.forEach(season => {
                 if (season.episodes) {
-                    season.episodes.sort((a, b) => a.episode_number - b.episode_number);
+                    season.episodes. sort((a, b) => a.episode_number - b.episode_number);
                 }
             });
             anime.seasons = seasons;
@@ -100,7 +100,7 @@ const AnimeAPI = {
         const { data, error } = await supabase
             .from('animes')
             .select('*')
-            .or(`title. ilike.%${query}%,original_title.ilike.%${query}%`)
+            .or(`title.ilike.%${query}%,original_title.ilike.%${query}%`)
             .limit(10);
         
         if (error) {
@@ -153,5 +153,4 @@ const AnimeAPI = {
     }
 };
 
-
-console.log('✅ Supabase Client başarıyla yüklendi!');
+console.log('✅ Supabase Client başarıyla yüklendi! ');
